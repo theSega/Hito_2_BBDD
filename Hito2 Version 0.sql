@@ -23,9 +23,8 @@ CREATE TABLE Hito2.Forja (
 	NombreF VARCHAR(25) UNIQUE NOT NULL,
 	NombreC VARCHAR(25) NOT NULL,
 	PRIMARY KEY (NombreF),
-	CONSTRAINT se_ubica
-		FOREIGN KEY (NombreC)
-		REFERENCES Hito2.Ciudad (NombreC)
+	CONSTRAINT forja_se_ubica_Ciudad
+		FOREIGN KEY (NombreC) REFERENCES Hito2.Ciudad (NombreC)
 		ON DELETE CASCADE
 );
 
@@ -40,8 +39,7 @@ CREATE TABLE Hito2.Arma (
 	Clase VARCHAR(10) NOT NULL,
 	PRIMARY KEY (NombreA, TipoA),
 	CONSTRAINT arma_valida
-        FOREIGN KEY (Clase)
-		REFERENCES Hito2.Rol (Clase)
+        FOREIGN KEY (Clase) REFERENCES Hito2.Rol (Clase)
 );
 
 CREATE TABLE Hito2.Tienda (
@@ -53,10 +51,8 @@ CREATE TABLE Hito2.Tienda_Se_Ubica_Ciudad (
 	NombreC VARCHAR(25) NOT NULL,
 	NombreT VARCHAR(25) NOT NULL,
 	CONSTRAINT tienda_se_ubica_ciudad
-			FOREIGN KEY (NombreC)
-			REFERENCES Hito2.Ciudad (NombreC), 
-			FOREIGN KEY (NombreT)
-			REFERENCES	Hito2.Tienda (NombreT)
+			FOREIGN KEY (NombreC) REFERENCES Hito2.Ciudad (NombreC), 
+			FOREIGN KEY (NombreT) REFERENCES	Hito2.Tienda (NombreT)
 );
 
 CREATE TABLE Hito2.Daga (
@@ -84,29 +80,23 @@ CREATE TABLE Hito2.Personaje (
     Clase VARCHAR(10) UNIQUE NOT NULL,
 	PRIMARY KEY (NombreP),
     CONSTRAINT tener_daga
-		FOREIGN KEY (TipoD)
-		REFERENCES Hito2.Daga (TipoD)
+		FOREIGN KEY (TipoD) REFERENCES Hito2.Daga (TipoD)
         ON UPDATE CASCADE,
-        FOREIGN KEY (IdJ)
-		REFERENCES Hito2.Jugador (IdJ)
+        FOREIGN KEY (IdJ) REFERENCES Hito2.Jugador (IdJ)
         ON DELETE CASCADE,
-        FOREIGN KEY (Clase)
-		REFERENCES Hito2.Rol (Clase)
+        FOREIGN KEY (Clase) REFERENCES Hito2.Rol (Clase)
 );
 
 CREATE TABLE Hito2.Personaje_Compra_Arma( # nope
-	NombreP VARCHAR(15),
+	NombreP VARCHAR(15) NOT NULL,
 	NombreA VARCHAR(20) NOT NULL,
 	TipoA VARCHAR(10) NOT NULL,
 	Fecha DATE,
 	Carga BOOLEAN NOT NULL DEFAULT false,
 	CONSTRAINT personaje_compra_arma
-            FOREIGN KEY (NombreP)
-			REFERENCES Hito2.Personaje (NombreP),
-			FOREIGN KEY (NombreA)
-			REFERENCES Hito2.arma (NombreA),
-			FOREIGN KEY (TipoA)
-			REFERENCES Hito2.arma (TipoA)
+            FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP),
+			FOREIGN KEY (NombreA) REFERENCES Hito2.Arma (NombreA),
+			FOREIGN KEY (TipoA) REFERENCES Hito2.Arma (TipoA)
 );
 
 CREATE TABLE Hito2.Habilidades (
@@ -114,8 +104,7 @@ CREATE TABLE Hito2.Habilidades (
 	Descripcion TEXT NOT NULL,
 	Clase VARCHAR(10) NOT NULL,
 	CONSTRAINT habilidad_de_rol
-		FOREIGN KEY (Clase)
-		REFERENCES Hito2.Rol (Clase)
+		FOREIGN KEY (Clase) REFERENCES Hito2.Rol (Clase)
 );
 
 # MONSTRUOS
@@ -130,18 +119,15 @@ CREATE TABLE Hito2.Monstruo (
 	Clase VARCHAR(10) NOT NULL,
     PRIMARY KEY (CodM, NombreM),
 	CONSTRAINT rol_derrota_monstruo
-			FOREIGN KEY (Clase)
-			REFERENCES Hito2.Rol (Clase)
+			FOREIGN KEY (Clase) REFERENCES Hito2.Rol (Clase)
 );
 
 CREATE TABLE Hito2.Persoanje_Derrota_Monstruo (
 	CodM VARCHAR(10) NOT NULL,
 	NombreP VARCHAR(15) NOT NULL,
 	CONSTRAINT personaje_derrota_monstruo
-			FOREIGN KEY (CodM)
-			REFERENCES Hito2.Monstruo (CodM),
-			FOREIGN KEY (NombreP)
-			REFERENCES Hito2.Personaje (NombreP)
+			FOREIGN KEY (CodM) REFERENCES Hito2.Monstruo (CodM),
+			FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP)
 );
 
 # ESCUADRON Y DERIVADOS
@@ -156,10 +142,8 @@ CREATE TABLE Hito2.Personaje_Entra_Escuadron (
 	Druida VARCHAR(20) NOT NULL,
 	FechaP DATE NOT NULL,
 	CONSTRAINT personaje_entra_escuadron
-		 FOREIGN KEY (IdE)
-		REFERENCES Hito2.Escuadron (IdE),
-		FOREIGN KEY (NombreP)
-		REFERENCES Hito2.Personaje (NombreP)
+		FOREIGN KEY (IdE) REFERENCES Hito2.Escuadron (IdE),
+		FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP)
 );
 
 CREATE TABLE Hito2.Dragon (
@@ -174,20 +158,16 @@ CREATE TABLE Hito2.Escuadron_Derrota_Dragon (
 	NombreD VARCHAR(25) NOT NULL,
 	IdE INTEGER(8) NOT NULL,
 	CONSTRAINT escuadron_derrota_dragon
-		FOREIGN KEY (NombreD)
-		REFERENCES Hito2.Dragon (NombreD),
-		FOREIGN KEY (IdE)
-		REFERENCES Hito2.Escuadron (IdE)
+		FOREIGN KEY (NombreD) REFERENCES Hito2.Dragon (NombreD),
+		FOREIGN KEY (IdE) REFERENCES Hito2.Escuadron (IdE)
 );
 
 CREATE TABLE Hito2.Dragon_Desbloquea_Dragon (
 	NombreD1 VARCHAR(25) NOT NULL,
 	NombreD2 VARCHAR(25) NOT NULL,
 	CONSTRAINT dragon_desbloquea_dragon
-		FOREIGN KEY (NombreD1)
-		REFERENCES Hito2.Dragon (NombreD),
-		FOREIGN KEY (NombreD2)
-		REFERENCES Hito2.Dragon (NombreD)
+		FOREIGN KEY (NombreD1) REFERENCES Hito2.Dragon (NombreD),
+		FOREIGN KEY (NombreD2) REFERENCES Hito2.Dragon (NombreD)
 );
 
 # POCION Y DERIVADOS
@@ -206,11 +186,6 @@ NombreP VARCHAR(15) NOT NULL,
 Druida VARCHAR(20) NOT NULL,
 FechaP DATE NOT NULL,
 CONSTRAINT personaje_recibe_pocion
-	FOREIGN KEY (CodP)
-    REFERENCES Hito2.Pocion (CodP),
-    FOREIGN KEY (NombreP)
-    REFERENCES Hito2.Personaje (NombreP)
+	FOREIGN KEY (CodP) REFERENCES Hito2.Pocion (CodP),
+    FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP)
 );
-
-
-
