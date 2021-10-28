@@ -4,12 +4,12 @@ CREATE DATABASE Hito2
     
 # ENTIDADES INDEPENDIENTES
 CREATE TABLE Hito2.Rol ( 
-	Clase VARCHAR(10) NOT NULL,
-		CHECK( Clase LIKE ('Guerrero','Tanque','Mago')),
-	Mana INTEGER NOT NULL,
-		CHECK ( Mana>=0 AND Mana <=300),
-	Vida INTEGER NOT NULL,
-		CHECK ( Vida>=0 AND Vida<=700),
+	Clase VARCHAR(10) UNIQUE,
+		CHECK((Clase='Guerrero') OR (Clase ='Tanque') OR (Clase ='Mago')),
+	Mana INTEGER NOT NULL DEFAULT 0,
+		CHECK ( Mana>=0 ),
+	Vida INTEGER NOT NULL DEFAULT 0,
+		CHECK ( Vida>=0 ),
 	PRIMARY KEY (Clase)
 );
 
@@ -32,15 +32,15 @@ CREATE TABLE Hito2.Forja (
 CREATE TABLE Hito2.Arma (
 	NombreA VARCHAR(20) NOT NULL,
 	TipoA VARCHAR(10) NOT NULL,
-		CHECK( TipoA LIKE ('Espada','Hacha','Baculo')),
-	Daño INTEGER NOT NULL
+		CHECK((TipoA='Espada') OR (TipoA ='Baculo') OR (TipoA='Hacha')),
+	Daño INTEGER NOT NULL,
 		CHECK(Daño>=20 AND Daño<=500),
-	Peso INTEGER NOT NULL
+	Peso INTEGER NOT NULL,
 		CHECK(Peso>=10 AND Peso<=50),
 	Clase VARCHAR(10) NOT NULL,
 	PRIMARY KEY (NombreA, TipoA),
 	CONSTRAINT arma_valida
-		FOREIGN KEY (Clase)
+        FOREIGN KEY (Clase)
 		REFERENCES Hito2.Rol (Clase)
 );
 
@@ -81,6 +81,7 @@ CREATE TABLE Hito2.Personaje (
 		CHECK( Fuerza>=10 AND Fuerza<=100),
 	TipoD VARCHAR(20) NOT NULL,
     IdJ INTEGER(10) UNIQUE NOT NULL,
+    Clase VARCHAR(10) UNIQUE NOT NULL,
 	PRIMARY KEY (NombreP),
     CONSTRAINT tener_daga
 		FOREIGN KEY (TipoD)
@@ -88,23 +89,24 @@ CREATE TABLE Hito2.Personaje (
         ON UPDATE CASCADE,
         FOREIGN KEY (IdJ)
 		REFERENCES Hito2.Jugador (IdJ)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+        FOREIGN KEY (Clase)
+		REFERENCES Hito2.Rol (Clase)
 );
 
-CREATE TABLE Hito2.Personaje_Compra_Arma(
-	NombreP VARCHAR(15) NOT NULL,
+CREATE TABLE Hito2.Personaje_Compra_Arma( # nope
+	NombreP VARCHAR(15),
 	NombreA VARCHAR(20) NOT NULL,
 	TipoA VARCHAR(10) NOT NULL,
 	Fecha DATE,
 	Carga BOOLEAN NOT NULL DEFAULT false,
 	CONSTRAINT personaje_compra_arma
-			FOREIGN KEY (NombreP)
-			REFERENCES Hito2.Personaje (NombreP)
-			ON DELETE CASCADE,
+            FOREIGN KEY (NombreP)
+			REFERENCES Hito2.Personaje (NombreP),
 			FOREIGN KEY (NombreA)
-			REFERENCES Hito2.Arma (NombreA),
+			REFERENCES Hito2.arma (NombreA),
 			FOREIGN KEY (TipoA)
-			REFERENCES Hito2.Arma (TipoA)
+			REFERENCES Hito2.arma (TipoA)
 );
 
 CREATE TABLE Hito2.Habilidades (
@@ -119,13 +121,14 @@ CREATE TABLE Hito2.Habilidades (
 # MONSTRUOS
 CREATE TABLE Hito2.Monstruo (
 	CodM VARCHAR(10) NOT NULL,
-		CHECK( CodM LIKE ('Goblin','Troll','Espectro')),
+		CHECK((CodM='Goblin') OR (CodM ='Troll') OR (CodM ='Espectro')),
 	NombreM VARCHAR(15) NOT NULL,
 	Vida INTEGER NOT NULL,
 		CHECK(Vida>=0 AND Vida<=500),
 	Oro INTEGER NOT NULL,
 		CHECK( Oro>=50 AND Oro<=120),
 	Clase VARCHAR(10) NOT NULL,
+    PRIMARY KEY (CodM, NombreM),
 	CONSTRAINT rol_derrota_monstruo
 			FOREIGN KEY (Clase)
 			REFERENCES Hito2.Rol (Clase)
@@ -133,7 +136,7 @@ CREATE TABLE Hito2.Monstruo (
 
 CREATE TABLE Hito2.Persoanje_Derrota_Monstruo (
 	CodM VARCHAR(10) NOT NULL,
-	Nombre VARCHAR(15) NOT NULL,
+	NombreP VARCHAR(15) NOT NULL,
 	CONSTRAINT personaje_derrota_monstruo
 			FOREIGN KEY (CodM)
 			REFERENCES Hito2.Monstruo (CodM),
@@ -143,11 +146,11 @@ CREATE TABLE Hito2.Persoanje_Derrota_Monstruo (
 
 # ESCUADRON Y DERIVADOS
 CREATE TABLE Hito2.Escuadron (
-	IdE INTEGER(8) UNIQUE NOT NULL,
+	IdE INTEGER(10) UNIQUE NOT NULL,
 	PRIMARY KEY(IdE)
 );
 
-CREATE TABLE Hito2.Persoanje_Entra_Escuadron (
+CREATE TABLE Hito2.Personaje_Entra_Escuadron (
 	IdE INTEGER(8) UNIQUE NOT NULL,
 	NombreP VARCHAR(15) NOT NULL,
 	Druida VARCHAR(20) NOT NULL,
@@ -156,7 +159,7 @@ CREATE TABLE Hito2.Persoanje_Entra_Escuadron (
 		 FOREIGN KEY (IdE)
 		REFERENCES Hito2.Escuadron (IdE),
 		FOREIGN KEY (NombreP)
-		REFERENCES Hito2.Persoanje (NombreP)
+		REFERENCES Hito2.Personaje (NombreP)
 );
 
 CREATE TABLE Hito2.Dragon (
@@ -167,7 +170,7 @@ CREATE TABLE Hito2.Dragon (
 	PRIMARY KEY (NombreD)
 );
 
-CREATE TABLE Hito2.Escuadron_Derrota_Dragon(
+CREATE TABLE Hito2.Escuadron_Derrota_Dragon (
 	NombreD VARCHAR(25) NOT NULL,
 	IdE INTEGER(8) NOT NULL,
 	CONSTRAINT escuadron_derrota_dragon
@@ -177,10 +180,10 @@ CREATE TABLE Hito2.Escuadron_Derrota_Dragon(
 		REFERENCES Hito2.Escuadron (IdE)
 );
 
-CREATE TABLE Hito2.Dragon_Desbloquea_Dragon(
-	NombreD1 VARCHAR(25) UNIQUE NOT NULL,
-	NombreD2 VARCHAR(25) UNIQUE NOT NULL,
-	CONSTRAINT escuadron_derrota_dragon
+CREATE TABLE Hito2.Dragon_Desbloquea_Dragon (
+	NombreD1 VARCHAR(25) NOT NULL,
+	NombreD2 VARCHAR(25) NOT NULL,
+	CONSTRAINT dragon_desbloquea_dragon
 		FOREIGN KEY (NombreD1)
 		REFERENCES Hito2.Dragon (NombreD),
 		FOREIGN KEY (NombreD2)
@@ -188,7 +191,7 @@ CREATE TABLE Hito2.Dragon_Desbloquea_Dragon(
 );
 
 # POCION Y DERIVADOS
-CREATE TABLE Hito2.Pocion(
+CREATE TABLE Hito2.Pocion (
 CodP INTEGER(2) NOT NULL,
 RecVida INTEGER NOT NULL DEFAULT 0,
 	CHECK( RecVIda>=0 AND RecVida<=700),
@@ -206,7 +209,7 @@ CONSTRAINT personaje_recibe_pocion
 	FOREIGN KEY (CodP)
     REFERENCES Hito2.Pocion (CodP),
     FOREIGN KEY (NombreP)
-    REFERENCES Hito2.Persoanje (NombreP)
+    REFERENCES Hito2.Personaje (NombreP)
 );
 
 
