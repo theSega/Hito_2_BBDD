@@ -126,7 +126,7 @@ CREATE TABLE Hito2.Monstruo (
 			FOREIGN KEY (Clase) REFERENCES Hito2.Rol (Clase)
 );
 
-CREATE TABLE Hito2.Persoanje_Derrota_Monstruo (
+CREATE TABLE Hito2.Personaje_Derrota_Monstruo (
 	CodM VARCHAR(10) NOT NULL,
     NombreM VARCHAR(15),
 	NombreP VARCHAR(15) NOT NULL,
