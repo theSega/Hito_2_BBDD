@@ -40,6 +40,14 @@ CREATE TABLE Hito2.Arma (
         FOREIGN KEY (Clase) REFERENCES Hito2.Rol (Clase)
 );
 
+CREATE TABLE Hito2.Forja_Crea_arma (
+NombreA VARCHAR(20) NOT NULL,
+NombreF VARCHAR(25) NOT NULL,
+CONSTRAINT forja_crea_arma
+        FOREIGN KEY (NombreA) REFERENCES Hito2.Arma (NombreA),
+        FOREIGN KEY (NombreF) REFERENCES Hito2.Forja (NombreF)
+);
+
 CREATE TABLE Hito2.Tienda (
 	NombreT VARCHAR(25) UNIQUE NOT NULL,
 	PRIMARY KEY (NombreT)
@@ -107,7 +115,7 @@ CREATE TABLE Hito2.Habilidades (
 CREATE TABLE Hito2.Monstruo (
 	CodM VARCHAR(10) NOT NULL,
 		CHECK((CodM='Goblin') OR (CodM ='Troll') OR (CodM ='Espectro')),
-	NombreM VARCHAR(15) NOT NULL,
+	NombreM VARCHAR(15) UNIQUE,
 	Vida INTEGER NOT NULL,
 		CHECK(Vida>=0 AND Vida<=500),
 	Oro INTEGER NOT NULL DEFAULT 50,
@@ -120,9 +128,11 @@ CREATE TABLE Hito2.Monstruo (
 
 CREATE TABLE Hito2.Persoanje_Derrota_Monstruo (
 	CodM VARCHAR(10) NOT NULL,
+    NombreM VARCHAR(15),
 	NombreP VARCHAR(15) NOT NULL,
 	CONSTRAINT personaje_derrota_monstruo
 			FOREIGN KEY (CodM) REFERENCES Hito2.Monstruo (CodM),
+			FOREIGN KEY (CodM) REFERENCES Hito2.Monstruo (NombreM),
 			FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP)
 );
 
