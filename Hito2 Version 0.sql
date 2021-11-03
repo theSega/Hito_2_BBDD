@@ -29,15 +29,13 @@ CREATE TABLE Hito2.Forja (
 );
 
 CREATE TABLE Hito2.Arma (
-	NombreA VARCHAR(20) NOT NULL,
-	TipoA VARCHAR(10) NOT NULL,
-		CHECK((TipoA='Espada') OR (TipoA ='Baculo') OR (TipoA='Hacha')),
+	NombreA VARCHAR(20) UNIQUE NOT NULL,
 	Daño INTEGER NOT NULL,
 		CHECK(Daño>=20 AND Daño<=500),
 	Peso INTEGER NOT NULL,
 		CHECK(Peso>=10 AND Peso<=50),
 	Clase VARCHAR(10) NOT NULL,
-	PRIMARY KEY (NombreA, TipoA),
+	PRIMARY KEY (NombreA),
 	CONSTRAINT arma_valida
         FOREIGN KEY (Clase) REFERENCES Hito2.Rol (Clase)
 );
@@ -56,7 +54,7 @@ CREATE TABLE Hito2.Tienda_Se_Ubica_Ciudad (
 );
 
 CREATE TABLE Hito2.Daga (
-	TipoD VARCHAR(20) UNIQUE NOT NULL,
+	TipoD VARCHAR(25) UNIQUE NOT NULL DEFAULT 'Daga de Madera',
 	PRIMARY KEY (TipoD)
 );
 
@@ -88,15 +86,13 @@ CREATE TABLE Hito2.Personaje (
 );
 
 CREATE TABLE Hito2.Personaje_Compra_Arma( # nope
-	NombreP VARCHAR(15) UNIQUE NOT NULL,
+	NombreP VARCHAR(15) NOT NULL,
 	NombreA VARCHAR(20) NOT NULL,
-	TipoA VARCHAR(10) NOT NULL,
 	Fecha DATE,
 	Carga BOOLEAN NOT NULL DEFAULT false,
 	CONSTRAINT personaje_compra_arma
             FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP),
-			FOREIGN KEY (NombreA) REFERENCES Hito2.Arma (NombreA),
-			FOREIGN KEY (TipoA) REFERENCES Hito2.Arma (TipoA)
+			FOREIGN KEY (NombreA) REFERENCES Hito2.Arma (NombreA)
 );
 
 CREATE TABLE Hito2.Habilidades (
@@ -114,7 +110,7 @@ CREATE TABLE Hito2.Monstruo (
 	NombreM VARCHAR(15) NOT NULL,
 	Vida INTEGER NOT NULL,
 		CHECK(Vida>=0 AND Vida<=500),
-	Oro INTEGER NOT NULL,
+	Oro INTEGER NOT NULL DEFAULT 50,
 		CHECK( Oro>=50 AND Oro<=120),
 	Clase VARCHAR(10) NOT NULL,
     PRIMARY KEY (CodM, NombreM),
