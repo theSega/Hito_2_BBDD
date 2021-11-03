@@ -88,7 +88,7 @@ CREATE TABLE Hito2.Personaje (
 );
 
 CREATE TABLE Hito2.Personaje_Compra_Arma( # nope
-	NombreP VARCHAR(15) NOT NULL,
+	NombreP VARCHAR(15) UNIQUE NOT NULL,
 	NombreA VARCHAR(20) NOT NULL,
 	TipoA VARCHAR(10) NOT NULL,
 	Fecha DATE,
