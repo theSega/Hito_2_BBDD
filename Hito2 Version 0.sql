@@ -82,6 +82,7 @@ CREATE TABLE Personaje (
 	Fuerza INTEGER NOT NULL DEFAULT 10,
 		CHECK( Fuerza>=10 AND Fuerza<=100),
 	TipoD VARCHAR(20) NOT NULL,
+    UltimaConexion DATE, #Ejercicio 4 Apartado b)
     IdJ INTEGER(10) UNIQUE NOT NULL,
     Clase ENUM('Guerrero','Tanque','Mago'),
 	PRIMARY KEY (NombreP),
@@ -99,13 +100,14 @@ CREATE TABLE Personaje_Compra_Arma( # nope
 	Fecha DATE,
 	Carga BOOLEAN NOT NULL DEFAULT false,
 	CONSTRAINT personaje_compra_arma
-            FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP),
+            FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP)
+            ON DELETE CASCADE,
 			FOREIGN KEY (NombreA) REFERENCES Hito2.Arma (NombreA)
 );
 
 CREATE TABLE Habilidades (
 	NombreH VARCHAR(20) UNIQUE NOT NULL,
-	Descripcion TEXT NOT NULL,
+	Descripcion TEXT,
 	Clase ENUM('Guerrero','Tanque','Mago'),
 	CONSTRAINT habilidad_de_rol
 		FOREIGN KEY (Clase) REFERENCES Hito2.Rol (Clase)
@@ -133,6 +135,7 @@ CREATE TABLE Personaje_Derrota_Monstruo (
 			FOREIGN KEY (CodM) REFERENCES Hito2.Monstruo (CodM),
 			FOREIGN KEY (NombreM) REFERENCES Hito2.Monstruo (NombreM),
 			FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP)
+            ON DELETE CASCADE
 );
 
 # ESCUADRON Y DERIVADOS
@@ -147,15 +150,17 @@ CREATE TABLE Personaje_Entra_Escuadron (
 	Druida VARCHAR(20) NOT NULL,
 	FechaP DATE NOT NULL,
 	CONSTRAINT personaje_entra_escuadron
-		FOREIGN KEY (IdE) REFERENCES Hito2.Escuadron (IdE),
+		FOREIGN KEY (IdE) REFERENCES Hito2.Escuadron (IdE)
+        ON DELETE CASCADE,
 		FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Dragon (
 	NombreD VARCHAR(25) UNIQUE NOT NULL,
 	Apariencia VARCHAR(10) NOT NULL,
 	Vida INTEGER NOT NULL,
-		CHECK( Vida>=0 AND Vida<=10000),
+		CHECK( Vida>=0),
 	PRIMARY KEY (NombreD)
 );
 
@@ -165,6 +170,7 @@ CREATE TABLE Escuadron_Derrota_Dragon (
 	CONSTRAINT escuadron_derrota_dragon
 		FOREIGN KEY (NombreD) REFERENCES Hito2.Dragon (NombreD),
 		FOREIGN KEY (IdE) REFERENCES Hito2.Escuadron (IdE)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Dragon_Desbloquea_Dragon (
@@ -193,4 +199,5 @@ FechaP DATE NOT NULL,
 CONSTRAINT personaje_recibe_pocion
 	FOREIGN KEY (CodP) REFERENCES Hito2.Pocion (CodP),
     FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP)
+    ON DELETE CASCADE
 );
