@@ -6,10 +6,6 @@ CREATE DATABASE Hito2
 # ENTIDADES INDEPENDIENTES
 CREATE TABLE Rol ( 
 	Clase ENUM('Guerrero','Tanque','Mago'),
-	Mana INTEGER NOT NULL DEFAULT 0,
-		CHECK ( Mana>=0 ),
-	Vida INTEGER NOT NULL DEFAULT 0,
-		CHECK ( Vida>=0 ),
 	PRIMARY KEY (Clase)
 );
 
@@ -96,6 +92,10 @@ CREATE TABLE Personaje (
 		CHECK ( Nivel >=1 AND Nivel <=100),
 	Fuerza INTEGER NOT NULL DEFAULT 10,
 		CHECK( Fuerza>=10 AND Fuerza<=100),
+	Mana INTEGER NOT NULL DEFAULT 0,
+		CHECK ( Mana>=0 ),
+	Vida INTEGER NOT NULL DEFAULT 0,
+		CHECK ( Vida>=0 ),
 	TipoD VARCHAR(20) NOT NULL,
     IdJ INTEGER(10) NOT NULL,
     Clase ENUM('Guerrero','Tanque','Mago'),
