@@ -31,9 +31,9 @@ CREATE TABLE Forja (
 CREATE TABLE Arma (
 	NombreA VARCHAR(20) UNIQUE NOT NULL,
 	Daño INTEGER NOT NULL,
-		CHECK(Daño>=20 AND Daño<=500),
+		CHECK(Daño>=20),
 	Peso INTEGER NOT NULL,
-		CHECK(Peso>=10 AND Peso<=50),
+		CHECK(Peso>=10 AND Peso<=80),
 	Clase ENUM('Guerrero','Tanque','Mago'),
 	PRIMARY KEY (NombreA),
 	CONSTRAINT arma_valida
@@ -68,8 +68,8 @@ CREATE TABLE Daga (
 
 # USUARIO Y RELACIONADOS
 CREATE TABLE Jugador ( 
-	IdJ INTEGER(10) UNIQUE NOT NULL AUTO_INCREMENT,
-	NombreJ VARCHAR(15) NOT NULL,
+	NombreJ VARCHAR(20) NOT NULL,
+    IdJ INTEGER(10) UNIQUE NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (IdJ)
 );
 
@@ -83,7 +83,7 @@ CREATE TABLE Personaje (
 		CHECK( Fuerza>=10 AND Fuerza<=100),
 	TipoD VARCHAR(20) NOT NULL,
     UltimaConexion DATE, #Ejercicio 4 Apartado b)
-    IdJ INTEGER(10) UNIQUE NOT NULL,
+    IdJ INTEGER(10) NOT NULL,
     Clase ENUM('Guerrero','Tanque','Mago'),
 	PRIMARY KEY (NombreP),
     CONSTRAINT tener_daga
@@ -118,9 +118,9 @@ CREATE TABLE Monstruo (
 	CodM ENUM('Goblin','Troll','Espectro') NOT NULL,
 	NombreM VARCHAR(15) UNIQUE,
 	Vida INTEGER NOT NULL,
-		CHECK(Vida>=0 AND Vida<=500),
+		CHECK(Vida>=0),
 	Oro INTEGER NOT NULL DEFAULT 50,
-		CHECK( Oro>=50 AND Oro<=120),
+		CHECK( Oro>=50),
 	Clase ENUM('Guerrero','Tanque','Mago'),
     PRIMARY KEY (CodM, NombreM),
 	CONSTRAINT rol_derrota_monstruo
@@ -183,7 +183,7 @@ CREATE TABLE Dragon_Desbloquea_Dragon (
 
 # POCION Y DERIVADOS
 CREATE TABLE Pocion (
-CodP INTEGER(2) NOT NULL,
+CodP INTEGER(1) NOT NULL AUTO_INCREMENT,
 RecVida INTEGER NOT NULL DEFAULT 0,
 	CHECK( RecVIda>=0 AND RecVida<=700),
 RecMana INTEGER NOT NULL DEFAULT 0,
@@ -192,7 +192,7 @@ PRIMARY KEY(CodP)
 );
 
 CREATE TABLE Personaje_Recibe_Pocion (
-CodP INTEGER(2) NOT NULL,
+CodP INTEGER(1) NOT NULL,
 NombreP VARCHAR(15) NOT NULL,
 Druida VARCHAR(20) NOT NULL,
 FechaP DATE NOT NULL,
