@@ -78,6 +78,7 @@ CREATE TABLE Tienda_Vende_Daga (
 CREATE TABLE Jugador ( 
 	NombreJ VARCHAR(20) NOT NULL,
     IdJ INTEGER(10) UNIQUE NOT NULL AUTO_INCREMENT,
+    UltimaConexion DATE, #Ejercicio 4 Apartado b)
 	PRIMARY KEY (IdJ)
 );
 
@@ -90,7 +91,6 @@ CREATE TABLE Personaje (
 	Fuerza INTEGER NOT NULL DEFAULT 10,
 		CHECK( Fuerza>=10 AND Fuerza<=100),
 	TipoD VARCHAR(20) NOT NULL,
-    UltimaConexion DATE, #Ejercicio 4 Apartado b)
     IdJ INTEGER(10) NOT NULL,
     Clase ENUM('Guerrero','Tanque','Mago'),
 	PRIMARY KEY (NombreP),
@@ -191,9 +191,9 @@ CREATE TABLE Dragon_Desbloquea_Dragon (
 CREATE TABLE Pocion (
 CodP INTEGER(1) NOT NULL AUTO_INCREMENT,
 RecVida INTEGER NOT NULL DEFAULT 0,
-	CHECK( RecVIda>=0 AND RecVida<=700),
+	CHECK( RecVIda>=0),
 RecMana INTEGER NOT NULL DEFAULT 0,
-	CHECK( RecMana>=0 AND RecMana<=300),
+	CHECK( RecMana>=0),
 PRIMARY KEY(CodP)
 );
 

@@ -76,26 +76,26 @@ INSERT INTO Daga
     
 # INSERT INTO Tienda_Vende_Daga 
 
-INSERT INTO Jugador (NombreJ)
-	VALUES ('Breakfury'), #IdJ 1 -> Stanto, Gim
-    ('Hammerpowerthunder'), #IdJ 2 -> Ahkarg, Mashgor, Dryto
-    ('Battlerboar'), #IdJ 3 -> Enso, Carorhall, Bucksel
-    ('Cloakbane'), #IdJ 4 -> Manddin, Xadel
-    ('Greyblade'); #IdJ 5 -> Raendan, Mawki
+INSERT INTO Jugador (NombreJ, UltimaConexion)
+	VALUES ('Breakfury','2021-09-30'), #IdJ 1 -> Stanto, Gim
+    ('Hammerpowerthunder','2021-06-27'), #IdJ 2 -> Ahkarg, Mashgor, Dryto
+    ('Battlerboar','2021-11-22'), #IdJ 3 -> Enso, Carorhall, Bucksel
+    ('Cloakbane','2021-09-03'), #IdJ 4 -> Manddin, Xadel
+    ('Greyblade','2021-10-19'); #IdJ 5 -> Raendan, Mawki
     
-INSERT INTO Personaje #(NombreP, Oro, Nivel, Fuerza, TipoD, UltimaConexion,IdJ, Clase)
-	VALUES ('Raendan',15470,47, 57,'Daga de marfil','2021-8-15',5,'Mago'), # Magos
-    ('Manddin', 1287, 15, 25,'Daga de madera','2021-02-27',4,'Mago'),
-    ('Xadel', 70765,83,91,'Daga de diamante','2021-11-11',4,'Mago'),
-    ('Enso',300,50,60,'Daga de marfil', '2021-11-22',3,'Mago'),
-    ('Stanto',8923,31,41,'Daga de bronce', '2021-09-23',1,'Guerrero'), # Guerreros
-    ('Makwi',9170,65,75,'Daga de marfil','2021-06-05',5,'Guerrero'),
-    ('Carorhall', 58,27,37,'Daga de madera','2021-10-30',3,'Guerrero'),
-    ('Dryto', 28340,63,73,'Daga de diamante','2021-10-22',2,'Guerrero'),
-    ('Ahkarg',103872,94,97,'Daga de diamante','2021-11-19',2,'Tanque'), # Tanques
-    ('Bucksel',893,43,53,'Daga de bronce','2021-09-23',3,'Tanque'),
-    ('Mashgor',1357,77,87,'Daga de madera','2021-07-18',2,'Tanque'),
-    ('Gim',638,7,17,'Daga de madera','2021-11-20',1,'Tanque');
+INSERT INTO Personaje #(NombreP, Oro, Nivel, Fuerza, TipoD, IdJ, Clase)
+	VALUES ('Raendan',15470,47, 57,'Daga de marfil',5,'Mago'), # Magos
+    ('Manddin', 1287, 15, 25,'Daga de madera',4,'Mago'),
+    ('Xadel', 70765,83,91,'Daga de diamante',4,'Mago'),
+    ('Enso',300,50,60,'Daga de marfil',3,'Mago'),
+    ('Stanto',8923,31,41,'Daga de bronce',1,'Guerrero'), # Guerreros
+    ('Makwi',9170,65,75,'Daga de marfil',5,'Guerrero'),
+    ('Carorhall', 58,27,37,'Daga de madera',3,'Guerrero'),
+    ('Dryto', 28340,63,73,'Daga de diamante',2,'Guerrero'),
+    ('Ahkarg',103872,94,97,'Daga de diamante',2,'Tanque'), # Tanques
+    ('Bucksel',893,43,53,'Daga de bronce',3,'Tanque'),
+    ('Mashgor',1357,77,87,'Daga de madera',2,'Tanque'),
+    ('Gim',638,7,17,'Daga de madera',1,'Tanque');
     
 # INSERT INTO Personaje_Compra_Arma
 	
@@ -177,5 +177,6 @@ INSERT INTO Dragon_Desbloquea_Dragon
     ('Kystorm','Ocho Cabezas'),
     ('Griffin','Ocho Cabezas');
 
-    
-    
+# INSERT INTO Pocion
+
+# INSERT INTO Personaje_Tiene_Pocion
