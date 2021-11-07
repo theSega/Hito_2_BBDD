@@ -168,6 +168,8 @@ INSERT INTO Personaje_Derrota_Monstruo #(CodM, NombreM, NombreP)
     ('Espectro','Hana','Xadel'),
     ('Espectro','Ligos','Enso'),
     ('Espectro','Bachpai','Enso'),
+    ('Espectro','Lira','Enso'),
+    ('Espectro','Hana','Enso'),
     ('Goblin','Kruulha','Stanto'),
     ('Goblin','Ragbal','Stanto'),
 	('Goblin','Kruulha','Makwi'),
@@ -249,7 +251,7 @@ INSERT INTO Pocion (RecVida, RecMana)
     (750,750); # CodP 4 -> Pikduk
 
 INSERT INTO hito2.Personaje_Recibe_Pocion #(CodP, NombreP, Druida, Fecha)
-	VALUES (1,'Raendan','Zucsur','2021-03-12'),
+	VALUES (1,'Raendan','Zucsur','2021-03-12'), # Magos
     (2,'Raendan','Losla','2021-04-08'),
     (3,'Raendan','Tar','2021-08-08'),
     (1,'Manddin','Zucsur','2021-05-17'),
@@ -259,7 +261,7 @@ INSERT INTO hito2.Personaje_Recibe_Pocion #(CodP, NombreP, Druida, Fecha)
     (4,'Xadel','Pikduk','2021-09-12'),
     (1,'Enso','Zucsur','2021-05-08'),
     (2,'Enso','Losla','2021-06-24'),
-    (1,'Stanto','Zucsur','2021-03-18'),
+    (1,'Stanto','Zucsur','2021-03-18'), # Guerrero
     (2,'Stanto','Losla','2021-04-03'),
     (3,'Stanto','Tar','2021-08-17'),
     (1,'Makwi','Zucsur','2021-07-22'),
@@ -267,8 +269,9 @@ INSERT INTO hito2.Personaje_Recibe_Pocion #(CodP, NombreP, Druida, Fecha)
     (2,'Carorhall','Losla','2021-10-16'),
     (1,'Dryto','Zucsur','2021-03-27'),
     (2,'Dryto','Losla','2021-07-11'),
+	(3,'Dryto','Tar','2021-07-17'),
     (4,'Dryto','Pikduk','2021-07-22'),
-    (1,'Ahkarg','Zucsur','2021-02-26'),
+    (1,'Ahkarg','Zucsur','2021-02-26'), # Tanque
     (2,'Ahkarg','Losla','2021-04-06'),
     (3,'Ahkarg','Tar','2021-08-15'),
     (4,'Ahkarg','Pikduk','2021-10-19'),

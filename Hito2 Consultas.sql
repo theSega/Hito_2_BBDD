@@ -8,9 +8,16 @@
     
 # g) Obtener nombres, vida y fuerza de guerreros que hayan recibido una pocion de,todos los druidas existentes.
 	USE hito2;
-    SELECT NombreP, Vida, Fuerza FROM  Personaje LEFT JOIN Personaje_Recibe_Pocion ON
+	SELECT NombreP, Vida,Fuerza FROM Personaje WHERE NombreP IN(
+		SELECT NombreP FROM Personaje_Recibe_Pocion 
+		GROUP BY NombreP
+		HAVING COUNT(DISTINCT Druida) = 4  AND NombreP IN (
+			SELECT NombreP FROM Personaje WHERE Clase = 'Guerrero'));
 
 # h) Obtener el nivel de los magos que han derrotado a todos los espectros y han comprado todas las dagas disponibles.
 	USE hito2;
-
+	SELECT Nivel FROM Personaje WHERE Clase='Mago' AND NombreP IN (
+		SELECT NombreP FROM Personaje_Derrota_Monstruo 
+		GROUP BY NombreP
+		HAVING COUNT(DISTINCT NombreM) = 4);
 
