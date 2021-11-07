@@ -163,7 +163,7 @@ INSERT INTO Escuadron_Derrota_Dragon
     ('Pastan',76391),
     ('Rannyexbea',76391),
     ('Griffin',76391),
-    ('Keystorm',76391),
+    ('Kystorm',76391),
     ('Ocho Cabezas',76391),
     ('Dehiss',13256),
 	('Rannyexbea',13256),
