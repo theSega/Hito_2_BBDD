@@ -44,8 +44,10 @@ CREATE TABLE Forja_Crea_arma (
 NombreA VARCHAR(20) NOT NULL,
 NombreF VARCHAR(25) NOT NULL,
 CONSTRAINT forja_crea_arma
-        FOREIGN KEY (NombreA) REFERENCES Hito2.Arma (NombreA),
+        FOREIGN KEY (NombreA) REFERENCES Hito2.Arma (NombreA)
+        ON DELETE CASCADE,
         FOREIGN KEY (NombreF) REFERENCES Hito2.Forja (NombreF)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Tienda (
@@ -57,8 +59,10 @@ CREATE TABLE Tienda_Se_Ubica_Ciudad (
 	NombreC VARCHAR(25) NOT NULL,
 	NombreT VARCHAR(25) NOT NULL,
 	CONSTRAINT tienda_se_ubica_ciudad
-			FOREIGN KEY (NombreC) REFERENCES Hito2.Ciudad (NombreC), 
+			FOREIGN KEY (NombreC) REFERENCES Hito2.Ciudad (NombreC)
+            ON DELETE CASCADE, 
 			FOREIGN KEY (NombreT) REFERENCES	Hito2.Tienda (NombreT)
+            ON DELETE CASCADE
 );
 
 CREATE TABLE Daga (
@@ -70,8 +74,10 @@ CREATE TABLE Tienda_Vende_Daga (
 	TipoD VARCHAR(25)  NOT NULL,
 	NombreT VARCHAR(25) NOT NULL,
 	CONSTRAINT vende
-				FOREIGN KEY (TipoD) REFERENCES Hito2.Daga (TipoD), 
+				FOREIGN KEY (TipoD) REFERENCES Hito2.Daga (TipoD)
+                ON DELETE CASCADE, 
 				FOREIGN KEY (NombreT) REFERENCES	Hito2.Tienda (NombreT)
+                ON DELETE CASCADE
 );
 
 # USUARIO Y RELACIONADOS
@@ -111,6 +117,7 @@ CREATE TABLE Personaje_Compra_Arma( # nope
             FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP)
             ON DELETE CASCADE,
 			FOREIGN KEY (NombreA) REFERENCES Hito2.Arma (NombreA)
+            ON DELETE CASCADE
 );
 
 CREATE TABLE Habilidades (

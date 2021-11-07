@@ -20,12 +20,12 @@ INSERT INTO Forja #( Forja, Ciudad en la que esta la forja)
     
 INSERT INTO Arma
 	VALUES('Hacha de mano',100,40,'Tanque'), # Hachas
-    ('Hacha arrojadiza',50,30,'Tanque'),
+    ('Hacha arrojadiza',50,15,'Tanque'),
     ('Hacha de doble punta',200,70,'Tanque'),
     ('Baculo de Madera', 50,10,'Mago'), # Baculos
     ('Mensajero de Mana',150,50,'Mago'),
     ('Raiz de Oscuridad',300,80,'Mago'),
-    ('Alfanje',70,30,'Guerrero'), # Espadas
+    ('Alfanje',70,20,'Guerrero'), # Espadas
     ('Espada flamigera',150,70,'Guerrero'),
     ('Bracamarte', 100,50,'Guerrero');
     
@@ -74,13 +74,20 @@ INSERT INTO Daga
     ('Daga de marfil'),
     ('Daga de diamante');
     
-# INSERT INTO Tienda_Vende_Daga 
+INSERT INTO Tienda_Vende_Daga 
+	VALUES ('Daga de madera','Tienda de Rolla'),
+    ('Daga de bronce','Tienda de Rolla'),
+    ('Daga de madera','Tienda de Swithron'),
+    ('Daga de bronce','Tienda de Swithron'),
+    ('Daga de marfil','Tienda de Swithron'),
+    ('Daga de marfil','Tienda de Aldlas'),
+    ('Daga de diamante','Tienda de Aldlas');
 
 INSERT INTO Jugador (NombreJ, UltimaConexion)
 	VALUES ('Breakfury','2021-09-30'), #IdJ 1 -> Stanto, Gim
-    ('Hammerpowerthunder','2021-06-27'), #IdJ 2 -> Ahkarg, Mashgor, Dryto
+    ('Hammerpowerthunder','2021-11-15'), #IdJ 2 -> Ahkarg, Mashgor, Dryto
     ('Battlerboar','2021-11-22'), #IdJ 3 -> Enso, Carorhall, Bucksel
-    ('Cloakbane','2021-09-03'), #IdJ 4 -> Manddin, Xadel
+    ('Cloakbane','2021-08-31'), #IdJ 4 -> Manddin, Xadel
     ('Greyblade','2021-10-19'); #IdJ 5 -> Raendan, Mawki
     
 INSERT INTO Personaje #(NombreP, Oro, Nivel, Fuerza, TipoD, IdJ, Clase)
@@ -97,7 +104,33 @@ INSERT INTO Personaje #(NombreP, Oro, Nivel, Fuerza, TipoD, IdJ, Clase)
     ('Mashgor',1357,77,87,'Daga de madera',2,'Tanque'),
     ('Gim',638,7,17,'Daga de madera',1,'Tanque');
     
-# INSERT INTO Personaje_Compra_Arma
+INSERT INTO Personaje_Compra_Arma #(NombreP, NombreA, Fecha, Carga)
+	VALUES ('Raendan','Baculo de Madera','2021-03-01',false), # Magos
+    ('Raendan','Mensajero de Mana','2021-07-30',true),
+    ('Manddin','Baculo de Madera','2021-06-09',true),
+    ('Xadel','Baculo de Madera','2021-02-15',true),
+    ('Xadel','Mensajero de Mana','2021-05-17',false),
+    ('Xadel','Raiz de Oscuridad','2021-08-26',true),
+	('Enso','Baculo de Madera','2021-08-01',true),
+    ('Enso','Mensajero de Mana','2021-11-07',true),
+    ('Stanto','Alfanje','2021-06-26',true), # Guerreros
+    ('Stanto','Bracamarte','2021-08-12',false),
+    ('Makwi','Alfanje','2021-06-24',false),
+    ('Makwi','Bracamarte','2021-08-26',false),
+    ('Makwi','Espada flamigera','2021-10-18',true),
+    ('Carorhall','Alfanje','2021-09-14',true),
+    ('Carorhall','Bracamarte','2021-11-03',false),
+    ('Dryto','Alfanje','2021-09-10',true),
+    ('Dryto','Bracamarte','2021-11-08',true),
+    ('Ahkarg','Hacha de mano','2021-03-02',false), # Tanques
+    ('Ahkarg','Hacha arrojadiza','2021-09-02',false), 
+    ('Ahkarg','Hacha de doble punta','2021-10-17',true), 
+    ('Bucksel','Hacha arrojadiza','2021-03-25',false),
+    ('Bucksel','Hacha de mano','2021-09-01',true),
+    ('Mashgor','Hacha de mano','2021-07-30',true),
+    ('Mashgor','Hacha arrojadiza','2021-04-26',false), 
+    ('Mashgor','Hacha de doble punta','2021-10-17',false),
+    ('Gim','Hacha arrojadiza','2021-09-21',true);
 	
 INSERT INTO Habilidades
 	VALUES('Intelecto Arcano','Buff de mana a todo el equipo','Mago'), # Mago
