@@ -9,7 +9,7 @@ INSERT INTO Ciudad
 	VALUES ('Glider'),
 	('Forgesand'),
 	('Hiltore'),
-	(' Gazegreenelven'),
+	('Gazegreenelven'),
 	('Greenbat'),
 	('Huntdwarf');
     
@@ -29,14 +29,44 @@ INSERT INTO Arma
     ('Espada flamigera',150,70,'Guerrero'),
     ('Bracamarte', 100,50,'Guerrero');
     
-# INSERT INTO Forja_Crea_Arma
-
+INSERT INTO Forja_Crea_Arma
+	VALUES ('Hacha de mano','Forja de Harmek'), # Forja de Harmek
+    ('Alfanje','Forja de Harmek'),
+    ('Baculo de Madera','Forja de Harmek'), 
+    ('Mensajero de Mana','Forja del Enano Risueño'), # Forja del Enano Risueño
+    ('Espada flamigera','Forja del Enano Risueño'),
+	('Hacha arrojadiza','Forja del Enano Risueño'),
+	('Hacha de doble punta','Forja del Enano Risueño'),
+    ('Hacha de doble punta','Forja de Tebez'), # Forja de Tebez
+    ('Bracamarte','Forja de Tebez'),
+    ('Baculo de Madera','Forja de Tebez'), 
+    ('Raiz de Oscuridad','Forja de Tebez'),
+	('Baculo de Madera','Forja de Tebez');
+    
 INSERT INTO Tienda
 	VALUES ('Tienda de Rolla'),
     ('Tienda de Swithron'),
     ('Tienda de Aldlas');
     
-#INSERT INTO Tienda_Se_Ubica_Ciudad
+INSERT INTO Tienda_Se_Ubica_Ciudad
+	VALUES ('Glider','Tienda de Rolla'), # Tienda de Rolla
+	('Forgesand','Tienda de Rolla'),
+	('Hiltore','Tienda de Rolla'),
+	('Gazegreenelven','Tienda de Rolla'),
+	('Greenbat','Tienda de Rolla'),
+	('Huntdwarf','Tienda de Rolla'),
+    ('Glider','Tienda de Swithron'), # Tienda de Swithron
+	('Forgesand','Tienda de Swithron'),
+	('Hiltore','Tienda de Swithron'),
+	('Gazegreenelven','Tienda de Swithron'),
+	('Greenbat','Tienda de Swithron'),
+	('Huntdwarf','Tienda de Swithron'),
+    ('Glider','Tienda de Aldlas'), # Tienda de Aldlas
+	('Forgesand','Tienda de Aldlas'),
+	('Hiltore','Tienda de Aldlas'),
+	('Gazegreenelven','Tienda de Aldlas'),
+	('Greenbat','Tienda de Aldlas'),
+	('Huntdwarf','Tienda de Aldlas');
 
 INSERT INTO Daga
 	VALUES ('Daga de madera'),
@@ -80,21 +110,29 @@ INSERT INTO Habilidades
 	('Seismo','Ataque de 3 ondas de medio alcance','Tanque');
     
 INSERT INTO Monstruo #(CodM, NombreM,Vida,Oro,clase)
-	VALUES(),
-    (),
-    (),
-    (),
-    (),
-    (),
-    (),
-    (),
-    (),
-    (),
-    (),
-    ();
+	VALUES('Espectro','Ligos',300,250,'Mago'),
+    ('Espectro','Bachpai',500,1000,'Mago'),
+    ('Espectro','Lira',700,1750,'Mago'),
+    ('Espectro','Hana',900,2500,'Mago'),
+    ('Goblin','Kruulha',200,200,'Guerrero'),
+    ('Goblin','Ragbal',400,750,'Guerrero'),
+    ('Goblin','Aalor',600,1500,'Guerrero'),
+    ('Goblin','Goleth',800,2250,'Guerrero'),
+    ('Troll','Ibe',250,500,'Tanque'),
+    ('Troll','Ry',500,1000,'Tanque'),
+    ('Troll','Ulne',750,1500,'Tanque'),
+    ('Troll','Fargan',1000,2000,'Tanque');
     
 # INSERT INTO Personaje_Derrota_Monstruo
     
+INSERT INTO Escuadron
+	VALUES(14632),
+    (87393),
+    (76391),
+    (13256);
+
+# INSERT INTO Personaje_Entra_Escuadron
+
 INSERT INTO Dragon
 	VALUES('Dehiss','Rojo',1250),
     ('Rannyexbea','Blanco',2500),
@@ -102,7 +140,16 @@ INSERT INTO Dragon
     ('Griffin','Dorado',5000),
 	('Kystorm','Azul',7500),
 	('Ocho Cabezas','Purpura',10000);
-        
+    
+# INSERT INTO Escuadron_Derrota_Dragon
+
+INSERT INTO Dragon_Desbloquea_Dragon
+	VALUES('Dehiss','Rannyexbea'), # Dehiss -> 	Rannyexbea	-> Kystorm	|
+	('Dehiss','Pastan'), #				|	 							-> Ocho Cabezas
+    ('Rannyexbea','Kystorm'), #			|	->	Pastan 		-> Griffin 	|
+    ('Pastan','Griffin'),
+    ('Kystorm','Ocho Cabezas'),
+    ('Griffin','Ocho Cabezas');
 
     
     
