@@ -73,6 +73,8 @@ INSERT INTO Daga
     ('Daga de bronce'),
     ('Daga de marfil'),
     ('Daga de diamante');
+    
+# INSERT INTO Tienda_Vende_Daga 
 
 INSERT INTO Jugador (NombreJ)
 	VALUES ('Breakfury'), #IdJ 1 -> Stanto, Gim
@@ -82,7 +84,7 @@ INSERT INTO Jugador (NombreJ)
     ('Greyblade'); #IdJ 5 -> Raendan, Mawki
     
 INSERT INTO Personaje #(NombreP, Oro, Nivel, Fuerza, TipoD, UltimaConexion,IdJ, Clase)
-	VALUES('Raendan',15470,47, 57,'Daga de marfil','2021-8-15',5,'Mago'), # Magos
+	VALUES ('Raendan',15470,47, 57,'Daga de marfil','2021-8-15',5,'Mago'), # Magos
     ('Manddin', 1287, 15, 25,'Daga de madera','2021-02-27',4,'Mago'),
     ('Xadel', 70765,83,91,'Daga de diamante','2021-11-11',4,'Mago'),
     ('Enso',300,50,60,'Daga de marfil', '2021-11-22',3,'Mago'),
@@ -96,7 +98,6 @@ INSERT INTO Personaje #(NombreP, Oro, Nivel, Fuerza, TipoD, UltimaConexion,IdJ, 
     ('Gim',638,7,17,'Daga de madera','2021-11-20',1,'Tanque');
     
 # INSERT INTO Personaje_Compra_Arma
-
 	
 INSERT INTO Habilidades
 	VALUES('Intelecto Arcano','Buff de mana a todo el equipo','Mago'), # Mago
@@ -131,7 +132,20 @@ INSERT INTO Escuadron
     (76391),
     (13256);
 
-# INSERT INTO Personaje_Entra_Escuadron
+INSERT INTO Personaje_Entra_Escuadron
+	VALUES  ('Raendan',14632),
+    ('Manddin',87393),
+    ('Xadel',76391),
+    ('Enso',13256),
+    ('Stanto',14632),
+    ('Makwi',76391),
+    ('Carorhall',87393),
+    ('Dryto',13256),
+    ('Ahkarg',76391),
+    ('Bucksel',14632),
+    ('Bucksel',13256),
+    ('Mashgor',13256),
+    ('Gim',87393);
 
 INSERT INTO Dragon
 	VALUES('Dehiss','Rojo',1250),
@@ -140,9 +154,21 @@ INSERT INTO Dragon
     ('Griffin','Dorado',5000),
 	('Kystorm','Azul',7500),
 	('Ocho Cabezas','Purpura',10000);
-    
-# INSERT INTO Escuadron_Derrota_Dragon
 
+INSERT INTO Escuadron_Derrota_Dragon
+	VALUES('Dehiss',14632),
+    ('Rannyexbea',14632),
+    ('Dehiss',87393),
+    ('Dehiss',76391),
+    ('Pastan',76391),
+    ('Rannyexbea',76391),
+    ('Griffin',76391),
+    ('Keystorm',76391),
+    ('Ocho Cabezas',76391),
+    ('Dehiss',13256),
+	('Rannyexbea',13256),
+	('Pastan',13256);
+    
 INSERT INTO Dragon_Desbloquea_Dragon
 	VALUES('Dehiss','Rannyexbea'), # Dehiss -> 	Rannyexbea	-> Kystorm	|
 	('Dehiss','Pastan'), #				|	 							-> Ocho Cabezas

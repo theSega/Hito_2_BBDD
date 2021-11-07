@@ -66,6 +66,14 @@ CREATE TABLE Daga (
 	PRIMARY KEY (TipoD)
 );
 
+CREATE TABLE Tienda_Vende_Daga (
+	TipoD VARCHAR(25)  NOT NULL,
+	NombreT VARCHAR(25) NOT NULL,
+	CONSTRAINT vende
+				FOREIGN KEY (TipoD) REFERENCES Hito2.Daga (TipoD), 
+				FOREIGN KEY (NombreT) REFERENCES	Hito2.Tienda (NombreT)
+);
+
 # USUARIO Y RELACIONADOS
 CREATE TABLE Jugador ( 
 	NombreJ VARCHAR(20) NOT NULL,
@@ -145,8 +153,8 @@ CREATE TABLE Escuadron (
 );
 
 CREATE TABLE Personaje_Entra_Escuadron (
-	IdE INTEGER(8) UNIQUE NOT NULL,
 	NombreP VARCHAR(15) NOT NULL,
+    IdE INTEGER(5) NOT NULL,
 	CONSTRAINT personaje_entra_escuadron
 		FOREIGN KEY (IdE) REFERENCES Hito2.Escuadron (IdE)
         ON DELETE CASCADE,
