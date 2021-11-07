@@ -153,11 +153,43 @@ INSERT INTO Monstruo #(CodM, NombreM,Vida,Oro,clase)
     ('Goblin','Aalor',600,1500,'Guerrero'),
     ('Goblin','Goleth',800,2250,'Guerrero'),
     ('Troll','Ibe',250,500,'Tanque'),
-    ('Troll','Ry',500,1000,'Tanque'),
-    ('Troll','Ulne',750,1500,'Tanque'),
-    ('Troll','Fargan',1000,2000,'Tanque');
+    ('Troll','Ry',500,1500,'Tanque'),
+    ('Troll','Ulne',750,2500,'Tanque'),
+    ('Troll','Fargan',1000,4000,'Tanque');
     
-# INSERT INTO Personaje_Derrota_Monstruo
+INSERT INTO Personaje_Derrota_Monstruo #(CodM, NombreM, NombreP)
+	VALUES ('Espectro','Ligos','Raendan'),
+    ('Espectro','Bachpai','Raendan'),
+    ('Espectro','Lira','Raendan'),
+    ('Espectro','Ligos','Manddin'),
+    ('Espectro','Ligos','Xadel'),
+    ('Espectro','Bachpai','Xadel'),
+    ('Espectro','Lira','Xadel'),
+    ('Espectro','Hana','Xadel'),
+    ('Espectro','Ligos','Enso'),
+    ('Espectro','Bachpai','Enso'),
+    ('Goblin','Kruulha','Stanto'),
+    ('Goblin','Ragbal','Stanto'),
+	('Goblin','Kruulha','Makwi'),
+    ('Goblin','Ragbal','Makwi'),
+    ('Goblin','Aalor','Makwi'),
+    ('Goblin','Goleth','Makwi'),
+	('Goblin','Kruulha','Carorhall'),
+    ('Goblin','Ragbal','Carorhall'),
+	('Goblin','Kruulha','Dryto'),
+    ('Goblin','Ragbal','Dryto'),
+    ('Goblin','Aalor','Dryto'),
+    ('Troll','Ibe','Ahkarg'),
+    ('Troll','Ry','Ahkarg'),
+    ('Troll','Ulne','Ahkarg'),
+    ('Troll','Fargan','Ahkarg'),
+	('Troll','Ibe','Bucksel'),
+    ('Troll','Ry','Bucksel'),
+    ('Troll','Ulne','Bucksel'),
+	('Troll','Ibe','Mashgor'),
+    ('Troll','Ry','Mashgor'),
+    ('Troll','Ulne','Mashgor');
+    # El Tanque Gim no ha derrotado a ningun Monstruo de CodM = Troll
     
 INSERT INTO Escuadron
 	VALUES(14632),
