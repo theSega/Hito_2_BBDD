@@ -91,16 +91,16 @@ INSERT INTO Jugador (NombreJ, UltimaConexion)
     ('Greyblade','2021-10-19'); #IdJ 5 -> Raendan, Mawki
     
 INSERT INTO Personaje #(NombreP, Oro, Nivel, Fuerza, Mana, Vida, TipoD, IdJ, Clase)
-	VALUES ('Raendan',15470,47, 57,14100,14100,'Daga de marfil',5,'Mago'), # Magos
-    ('Manddin', 1287, 15, 25,4500,4500,'Daga de madera',4,'Mago'),
+	VALUES ('Raendan',15470,47, 57,14100,14100,'Daga de marfil',5,'Mago'), # Magos -> Vida = 300*Nivel
+    ('Manddin', 1287, 15, 25,4500,4500,'Daga de madera',4,'Mago'), #			      Mana = 300*Nivel
     ('Xadel', 70765,83,91,24900,24900,'Daga de diamante',4,'Mago'),
     ('Enso',300,50,60,15000,15000,'Daga de marfil',3,'Mago'),
-    ('Stanto',8923,31,41,6200,15500,'Daga de bronce',1,'Guerrero'), # Guerreros
-    ('Makwi',9170,65,75,13000,32500,'Daga de marfil',5,'Guerrero'),
+    ('Stanto',8923,31,41,6200,15500,'Daga de bronce',1,'Guerrero'), # Guerreros -> Vida = 500*Nivel
+    ('Makwi',9170,65,75,13000,32500,'Daga de marfil',5,'Guerrero'), #			   Mana = 200*Nivel
     ('Carorhall', 58,27,37,5400,13500,'Daga de madera',3,'Guerrero'),
     ('Dryto', 28340,63,73,12600,31500,'Daga de diamante',2,'Guerrero'),
-    ('Ahkarg',103872,94,97,9400,65800,'Daga de diamante',2,'Tanque'), # Tanques
-    ('Bucksel',893,43,53,4300,21500,'Daga de bronce',3,'Tanque'),
+    ('Ahkarg',103872,94,97,9400,65800,'Daga de diamante',2,'Tanque'), # Tanques -> Vida = 700*Nivel
+    ('Bucksel',893,43,53,4300,21500,'Daga de bronce',3,'Tanque'), #				   Mana = 100*Nivel
     ('Mashgor',1357,77,87,7700,38500,'Daga de madera',2,'Tanque'),
     ('Gim',638,7,17,700,3500,'Daga de madera',1,'Tanque');
     
