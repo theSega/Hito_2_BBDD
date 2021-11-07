@@ -210,7 +210,8 @@ NombreP VARCHAR(15) NOT NULL,
 Druida VARCHAR(20) NOT NULL,
 FechaP DATE NOT NULL,
 CONSTRAINT personaje_recibe_pocion
-	FOREIGN KEY (CodP) REFERENCES Hito2.Pocion (CodP),
+	FOREIGN KEY (CodP) REFERENCES Hito2.Pocion (CodP)
+    ON DELETE CASCADE,
     FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP)
     ON DELETE CASCADE
 );

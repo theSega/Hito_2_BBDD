@@ -242,6 +242,38 @@ INSERT INTO Dragon_Desbloquea_Dragon
     ('Kystorm','Ocho Cabezas'),
     ('Griffin','Ocho Cabezas');
 
-# INSERT INTO Pocion
+INSERT INTO Pocion (RecVida, RecMana)
+	VALUES(0,500), # CodP 1 -> Zucsur
+    (500,0), # CodP 2 -> Losla
+    (300,300), # CodP 3 -> tar
+    (750,750); # CodP 4 -> Pikduk
 
-# INSERT INTO Personaje_Tiene_Pocion
+INSERT INTO Personaje_Tiene_Pocion #(CodP, NombreP, Druida, Fecha)
+	VALUES (1,'Raendan','Zucsur','2021-03-12'),
+    (2,'Raendan','Losla','2021-04-08'),
+    (3,'Raendan','Tar','2021-08-08'),
+    (1,'Manddin','Zucsur','2021-05-17'),
+    (1,'Xadel','Zucsur','2021-05-18'),
+    (2,'Xadel','Losla','2021-07-30'),
+    (3,'Xadel','Tar','2021-08-14'),
+    (4,'Xadel','Pikduk','2021-09-12'),
+    (1,'Enso','Zucsur','2021-05-08'),
+    (2,'Enso','Losla','2021-06-24'),
+    (1,'Stanto','Zucsur','2021-03-18'),
+    (2,'Stanto','Losla','2021-04-03'),
+    (3,'Stanto','Tar','2021-08-17'),
+    (1,'Makwi','Zucsur','2021-07-22'),
+    (3,'Makwi','Tar','2021-07-24'),
+    (2,'Carorhall','Losla','2021-10-16'),
+    (1,'Dryto','Zucsur','2021-03-27'),
+    (2,'Dryto','Losla','2021-07-11'),
+    (4,'Dryto','Pikduk','2021-07-22'),
+    (1,'Ahkarg','Zucsur','2021-02-26'),
+    (2,'Ahkarg','Losla','2021-04-06'),
+    (3,'Ahkarg','Tar','2021-08-15'),
+    (4,'Ahkarg','Pikduk','2021-10-19'),
+    (2,'Bucksel','Losla','2021-02-28'),
+    (3,'Bucksel','Tar','2021-08-12'),
+    (3,'Mashgor','Tar','2021-04-28'),
+    (4,'Mashgor','Pikduk','2021-06-06'),
+    (1,'Gim','Zucsur','2021-06-15');
