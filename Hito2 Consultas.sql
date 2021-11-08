@@ -11,7 +11,7 @@
 	USE hito2;
     
     
-# d) Obtener el n´umero total de dragones que ha matado cada jugador con cualquier
+# d) Obtener el numero total de dragones que ha matado cada jugador con cualquier
 #    personaje
 	USE hito2;	
 
