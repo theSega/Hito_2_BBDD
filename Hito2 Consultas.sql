@@ -38,7 +38,7 @@
 	SELECT NombreP, Vida,Fuerza FROM Personaje WHERE Clase = 'Guerrero' AND NombreP IN(
 		SELECT NombreP FROM Personaje_Recibe_Pocion 
 		GROUP BY NombreP
-		HAVING COUNT(DISTINCT Druida) = 4);
+		HAVING COUNT(DISTINCT Druida) = 4); # = 4 por que hay 4 diferentes druidas
 
 # h) Obtener el nivel de los magos que han derrotado a todos los espectros y han comprado todas las dagas disponibles.
 	USE hito2;
