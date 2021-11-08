@@ -251,18 +251,16 @@ INSERT INTO Arma
     ('Bracamarte', 100,50,'Guerrero');
     
 INSERT INTO Forja_Crea_Arma
-	VALUES ('Hacha de mano','Forja de Harmek'), # Forja de Harmek
+	VALUES ('Hacha arrojadiza','Forja de Harmek'), # Forja de Harmek
     ('Alfanje','Forja de Harmek'),
     ('Baculo de Madera','Forja de Harmek'), 
     ('Mensajero de Mana','Forja del Enano Risueño'), # Forja del Enano Risueño
-    ('Espada flamigera','Forja del Enano Risueño'),
-	('Hacha arrojadiza','Forja del Enano Risueño'),
-	('Hacha de doble punta','Forja del Enano Risueño'),
+    ('Bracamarte','Forja del Enano Risueño'),
+	('Hacha de mano','Forja del Enano Risueño'),
     ('Hacha de doble punta','Forja de Tebez'), # Forja de Tebez
-    ('Bracamarte','Forja de Tebez'),
-    ('Baculo de Madera','Forja de Tebez'), 
-    ('Raiz de Oscuridad','Forja de Tebez'),
-	('Baculo de Madera','Forja de Tebez');
+    ('Espada Flamigera','Forja de Tebez'),
+    ('Raiz de Oscuridad','Forja de Tebez');
+	
     
 INSERT INTO Tienda
 	VALUES ('Tienda de Rolla'),
