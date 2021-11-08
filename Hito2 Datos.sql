@@ -102,7 +102,8 @@ INSERT INTO Personaje #(NombreP, Oro, Nivel, Fuerza, Mana, Vida, TipoD, IdJ, Cla
     ('Ahkarg',103872,94,97,9400,65800,'Daga de diamante',2,'Tanque'), # Tanques -> Vida = 700*Nivel
     ('Bucksel',893,43,53,4300,21500,'Daga de bronce',3,'Tanque'), #				   Mana = 100*Nivel
     ('Mashgor',1357,77,87,7700,38500,'Daga de madera',2,'Tanque'),
-    ('Gim',638,7,17,700,3500,'Daga de madera',1,'Tanque');
+    ('Gim',638,7,17,700,3500,'Daga de madera',1,'Tanque'); # Fuerza = 10 * Nivel (hasta nivel 80)
+														   # Luego cada 2 niveles Fuerza = Fuerza + 1
     
 INSERT INTO Personaje_Compra_Arma #(NombreP, NombreA, Fecha, Carga)
 	VALUES ('Raendan','Baculo de Madera','2021-03-01',false), # Magos
