@@ -1,19 +1,19 @@
 # a) Obtener los dragones que tengan nombre “Griffin” u “Ocho Cabezas”.
 	USE hito2;
-    SELECT*FROM Dragon WHERE NombreD LIKE 'Griffin'OR NombreD LIKE 'Ocho Cabezas';
+    SELECT*FROM Dragon WHERE NombreD IN ('Griffin', 'Ocho Cabezas');
     
     
 # b) Obtener los guerreros que haya comprado dagas en la “Tienda de Rolla” y forjado
 #    espadas en la “Forja del enano risueño”.
 	USE hito2;
-    SELECT NombreP From Personaje WHERE Clase LIKE'Guerrero' 
+    SELECT * FROM Personaje WHERE Clase = 'Guerrero' 
 		AND TipoD IN (SELECT TipoD FROM Tienda_Vende_Daga WHERE NombreT LIKE 'Tienda de Rolla')
         AND NombreP IN (SELECT NombreP FROM Personaje_Compra_Arma WHERE NombreA IN(
 			SELECT NombreA FROM Forja_Crea_Arma WHERE NombreF LIKE 'Forja del enano risueño'));
     
 # c) Obtener el oro total ganado por los personajes ordenado de mayor a menor.
 	USE hito2;
-    
+    SELECT * FROM personaje ORDER BY Oro DESC;
     
 # d) Obtener el numero total de dragones que ha matado cada jugador con cualquier
 #    personaje
@@ -26,8 +26,7 @@
     SELECT NombreJ from Jugador WHERE IdJ IN (
 		SELECT IdJ FROM Personaje WHERE TipoD IN ( 
 			SELECT TipoD FROM Tienda_Vende_Daga WHERE NombreT IN (
-				SELECT NombreT FROM Tienda_Se_Ubica_Ciudad 
-                GROUP BY NombreC IN(
+				SELECT NombreT FROM Tienda_Se_Ubica_Ciudad WHERE NombreC IN (
 					SELECT NombreC FROM Forja
 					GROUP BY NombreC 
 					HAVING COUNT(DISTINCT NombreF) <= 2))));
