@@ -4,7 +4,6 @@ USE Hito2;
 #    que haya derrotado al menos 50 goblins.
 
 
-
 # b) Añade un atributo ‘ultima conexion’ a la tabla de personajes. Luego, crea un
 #    procedimiento que elimine los jugadores que no se hayan conectado en los ultimos
 #    60 dias. Puedes usar la funcion DATEDIFF1 para este fin.
@@ -13,4 +12,6 @@ USE Hito2;
 	BEGIN
 		DELETE FROM hito2.Jugador WHERE DATEDIFF(jugador.UltimaConexion,CONVERT( SYSDATETIME(),DATE)>=60
 	END //
-    DELIMETER ;
+    DELIMETER ; 
+    
+    
