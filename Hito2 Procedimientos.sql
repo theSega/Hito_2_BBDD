@@ -7,9 +7,3 @@ BEGIN
 	DELETE FROM jugador
 	where DATEDIFF(jugador.UltimaConexion,CONVERT(date,@A)>=60;
 END
-
-
-CREATE PROCEDURE masVidaGuerrero ()
-BEGIN
-
-END

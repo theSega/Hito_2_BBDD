@@ -295,11 +295,8 @@ INSERT INTO Daga
     
 INSERT INTO Tienda_Vende_Daga 
 	VALUES ('Daga de madera','Tienda de Rolla'),
-    ('Daga de bronce','Tienda de Rolla'),
-    ('Daga de madera','Tienda de Swithron'),
     ('Daga de bronce','Tienda de Swithron'),
     ('Daga de marfil','Tienda de Swithron'),
-    ('Daga de marfil','Tienda de Aldlas'),
     ('Daga de diamante','Tienda de Aldlas');
 
 INSERT INTO Jugador (NombreJ, UltimaConexion)

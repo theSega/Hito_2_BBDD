@@ -1,3 +1,20 @@
+# a) Obtener los dragones que tengan nombre “Griffin” u “Ocho Cabezas”.
+	USE hito2;
+    
+    
+# b) Obtener los guerreros que haya comprado dagas en la “Tienda de Rolla” y forjado
+#    espadas en la “Forja del enano risueño”.
+	USE hito2;
+    
+    
+# c) Obtener el oro total ganado por los personajes ordenado de mayor a menor.
+	USE hito2;
+    
+    
+# d) Obtener el n´umero total de dragones que ha matado cada jugador con cualquier
+#    personaje
+	USE hito2;	
+
 
 # e) Obtener el nombre de los jugadores cuyos personajes no hayan comprado en 
 #    tiendas de ciudades con mas de dos forjas.
@@ -29,4 +46,10 @@
 		SELECT NombreP FROM Personaje_Derrota_Monstruo 
 		GROUP BY NombreP
 		HAVING COUNT(DISTINCT NombreM) = 4);
+        
+# i) Obtener el tanque que ha participado en el maximo numero de escuadrones.
+	USE hito2;
 
+
+# j) Obtener el hacha con menor peso y el dueño de la forja donde se hizo
+	USE hito2;
