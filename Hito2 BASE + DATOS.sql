@@ -138,7 +138,7 @@ CREATE TABLE Monstruo (
 	Vida INTEGER NOT NULL,
 		CHECK(Vida>=0),
 	Oro INTEGER NOT NULL DEFAULT 50,
-		CHECK( Oro>=50),
+		CHECK(Oro>=50),
 	Clase ENUM('Guerrero','Tanque','Mago'),
     PRIMARY KEY (CodM, NombreM),
 	CONSTRAINT rol_derrota_monstruo
@@ -218,6 +218,22 @@ CREATE TABLE Personaje_Recibe_Pocion (
 		FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP)
 		ON DELETE CASCADE
 );
+
+# TRIGGERS
+
+# a) Define un trigger para que cuando un jugador haya matado al menos 3 dragones,
+#    su vida aumente en 5.
+	
+    DELIMITER //
+    CREATE TRIGGER `Vida+5` AFTER INSERT ON Escuadron_Derrota_Dragon FOR EACH ROW
+    BEGIN
+		UPDATE Personaje SET Vida = Vida + 5 WHERE NombreP IN (
+				SELECT NombreP FROM Personaje_Entra_Escuadron WHERE IdE IN (
+					SELECT IdE FROM Escuadron_Derrota_Dragon 
+					GROUP BY IdE
+					HAVING COUNT(DISTINCT NombreD) >= 3));
+    END; //
+	DELIMITER ;
 
 # DATOS
 
@@ -438,6 +454,14 @@ INSERT INTO Dragon
     ('Griffin','Dorado',50000),
 	('Kystorm','Azul',75000),
 	('Ocho Cabezas','Purpura',100000);
+    
+INSERT INTO Dragon_Desbloquea_Dragon
+	VALUES('Dehiss','Rannyexbea'), # Dehiss -> 	Rannyexbea	-> Kystorm	|
+	('Dehiss','Pastan'), #				|	 							-> Ocho Cabezas
+    ('Rannyexbea','Kystorm'), #			|	->	Pastan 		-> Griffin 	|
+    ('Pastan','Griffin'),
+    ('Kystorm','Ocho Cabezas'),
+    ('Griffin','Ocho Cabezas');
 
 INSERT INTO Escuadron_Derrota_Dragon
 	VALUES('Dehiss',14632),
@@ -453,18 +477,10 @@ INSERT INTO Escuadron_Derrota_Dragon
 	('Rannyexbea',13256),
 	('Pastan',13256);
     
-INSERT INTO Dragon_Desbloquea_Dragon
-	VALUES('Dehiss','Rannyexbea'), # Dehiss -> 	Rannyexbea	-> Kystorm	|
-	('Dehiss','Pastan'), #				|	 							-> Ocho Cabezas
-    ('Rannyexbea','Kystorm'), #			|	->	Pastan 		-> Griffin 	|
-    ('Pastan','Griffin'),
-    ('Kystorm','Ocho Cabezas'),
-    ('Griffin','Ocho Cabezas');
-
 INSERT INTO Pocion (RecVida, RecMana)
 	VALUES(0,500), # CodP 1 -> Zucsur
     (500,0), # CodP 2 -> Losla
-    (300,300), # CodP 3 -> tar
+    (300,300), # CodP 3 -> Tar
     (750,750); # CodP 4 -> Pikduk
 
 INSERT INTO hito2.Personaje_Recibe_Pocion #(CodP, NombreP, Druida, Fecha)
