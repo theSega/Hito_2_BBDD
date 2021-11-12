@@ -6,11 +6,20 @@
     DROP TRIGGER IF EXISTS `Vida+5`//
     CREATE TRIGGER `Vida+5` AFTER INSERT ON Escuadron_Derrota_Dragon FOR EACH ROW
     BEGIN
-		UPDATE Personaje SET Vida = Vida + 5 WHERE NombreP IN (
+		/*
+		IF Personaje.Vida LIKE '%5' WHERE NombreP IN (
+				SELECT NombreP FROM Personaje_Entra_Escuadron WHERE IdE IN (
+					SELECT IdE FROM Escuadron_Derrota_Dragon 
+					GROUP BY IdE
+					HAVING COUNT(DISTINCT NombreD) >= 3))
+        THEN
+        */
+        UPDATE Personaje SET Vida = Vida + 5 WHERE NombreP IN (
 				SELECT NombreP FROM Personaje_Entra_Escuadron WHERE IdE IN (
 					SELECT IdE FROM Escuadron_Derrota_Dragon 
 					GROUP BY IdE
 					HAVING COUNT(DISTINCT NombreD) >= 3));
+		#END IF;
     END //
 	DELIMITER ;
     
