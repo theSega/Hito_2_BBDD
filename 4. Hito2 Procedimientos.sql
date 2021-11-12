@@ -23,7 +23,7 @@ USE Hito2;
 				END IF;
 				
 				UPDATE Personaje SET Vida = var_Vida + 10 WHERE var_Rol = 'Guerrero' AND var_Nombre IN (
-					SELECT NombreP, COUNT(CodM) FROM Personaje_Derrota_Monstruo WHERE CodM  = 'Goblin'
+					SELECT NombreP FROM Personaje_Derrota_Monstruo WHERE CodM  = 'Goblin'
 					GROUP BY NombreP
 					HAVING COUNT(CodM) >= 50 );
         
