@@ -10,7 +10,7 @@ USE Hito2;
 	DELIMITER //
     CREATE PROCEDURE ultima_conexion()
 	BEGIN
-		DELETE FROM hito2.Jugador WHERE DATEDIFF(jugador.UltimaConexion,CONVERT( DATETIME(),DATE))>=60;
+		DELETE FROM hito2.Jugador WHERE DATEDIFF(jugador.UltimaConexion,CONVERT( DATETIME(),DATE)) >= 60;
 	END; //
     DELIMITER ; 
     
