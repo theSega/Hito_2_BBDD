@@ -8,10 +8,11 @@ USE Hito2;
 #    procedimiento que elimine los jugadores que no se hayan conectado en los ultimos
 #    60 dias. Puedes usar la funcion DATEDIFF1 para este fin.
 	DELIMITER //
+    DROP PROCEDURE IF EXISTS Ultima_Conexion //
     CREATE PROCEDURE ultima_conexion()
 	BEGIN
-		DELETE FROM hito2.Jugador WHERE DATEDIFF(jugador.UltimaConexion,CONVERT( DATETIME(),DATE)) >= 60;
-	END; //
+		DELETE FROM hito2.Jugador WHERE DATEDIFF(CURDATE(), Jugador.UltimaConexion) >= 60;
+	END //
     DELIMITER ; 
     
     
