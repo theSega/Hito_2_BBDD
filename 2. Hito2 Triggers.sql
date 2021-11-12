@@ -45,6 +45,5 @@
 /*
 	use hito2;
 	INSERT INTO Escuadron_Derrota_Dragon (NombreD, IdE)
-	VALUES ('Ocho Cabezas',14632),
-    ('Ocho Cabezas',13256);
+	VALUES ('Ocho Cabezas',14632);
 */

@@ -135,10 +135,10 @@ CREATE TABLE Habilidades (
 CREATE TABLE Monstruo (
 	CodM ENUM('Goblin','Troll','Espectro') NOT NULL,
 	NombreM VARCHAR(15) UNIQUE,
-	Vida INTEGER NOT NULL,
-		CHECK(Vida>=0),
 	Oro INTEGER NOT NULL DEFAULT 50,
 		CHECK(Oro>=50),
+    Vida INTEGER NOT NULL,
+		CHECK(Vida>=0),
 	Clase ENUM('Guerrero','Tanque','Mago'),
     PRIMARY KEY (CodM, NombreM),
 	CONSTRAINT rol_derrota_monstruo
