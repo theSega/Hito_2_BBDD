@@ -17,7 +17,7 @@ USE Hito2;
 
 # b) Añade un atributo ‘ultima conexion’ a la tabla de personajes. Luego, crea un
 #    procedimiento que elimine los jugadores que no se hayan conectado en los ultimos
-#    60 dias. Puedes usar la funcion DATEDIFF1 para este fin.
+#    60 dias. Puedes usar la funcion DATEDIFF para este fin.
 	DELIMITER //
     DROP PROCEDURE IF EXISTS Ultima_Conexion //
     CREATE PROCEDURE Ultima_Conexion()
