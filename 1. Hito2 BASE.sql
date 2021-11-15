@@ -83,7 +83,6 @@ CREATE TABLE Tienda_Vende_Daga (
 CREATE TABLE Jugador ( 
 	NombreJ VARCHAR(20) NOT NULL,
     IdJ INTEGER(10) UNIQUE NOT NULL AUTO_INCREMENT,
-    UltimaConexion DATE, #Ejercicio 4 Apartado b)
 	PRIMARY KEY (IdJ)
 );
 
@@ -102,6 +101,7 @@ CREATE TABLE Personaje (
 	TipoD VARCHAR(20) NOT NULL,
     IdJ INTEGER(10) NOT NULL,
     Clase ENUM('Guerrero','Tanque','Mago'),
+    UltimaConexion DATE, #Ejercicio 4 Apartado b)
 	PRIMARY KEY (NombreP),
     CONSTRAINT tener_daga
 		FOREIGN KEY (TipoD) REFERENCES Hito2.Daga (TipoD)
@@ -218,3 +218,15 @@ CREATE TABLE Personaje_Recibe_Pocion (
 		FOREIGN KEY (NombreP) REFERENCES Hito2.Personaje (NombreP)
 		ON DELETE CASCADE
 );
+
+# SEMANTICA NO CONTEMPLADA
+
+DELIMITER //
+DROP TRIGGER IF EXISTS Arma_Valida//
+	CREATE TRIGGER Arma_Valida BEFORE INSERT ON Personaje_Compra_Arma FOR EACH ROW
+	BEGIN
+		IF (SELECT Clase FROM Arma WHERE NombreD = New.NombreD) <> (SELECT Clase FROM Personaje WHERE NombreP = New.NombreP)
+		THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El Personaje no puede comprar un arma de un rol diferente';
+        END IF;
+    END //
+DELIMITER ;

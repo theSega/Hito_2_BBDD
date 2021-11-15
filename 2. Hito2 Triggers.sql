@@ -10,7 +10,7 @@
 				SELECT NombreP FROM Personaje_Entra_Escuadron WHERE IdE IN (
 					SELECT IdE FROM Escuadron_Derrota_Dragon 
 					GROUP BY IdE
-					HAVING COUNT(DISTINCT NombreD) >= 3));
+					HAVING COUNT(DISTINCT NombreD) = 3));
     END //
 	DELIMITER ;
     
