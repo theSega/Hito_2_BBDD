@@ -42,11 +42,11 @@ USE Hito2;
     DROP PROCEDURE IF EXISTS Ultima_Conexion //
     CREATE PROCEDURE Ultima_Conexion()
 	BEGIN
-		DELETE FROM hito2.Jugador WHERE DATEDIFF(CURDATE(),(SELECT UltimaConexion FROM (
+		DELETE FROM hito2.Jugador WHERE DATEDIFF(CURDATE(),( SELECT UltimaConexion FROM (
 			SELECT Jugador.IdJ, UltimaConexion FROM Jugador 
 				INNER JOIN 
-			Personaje ON Jugador.IdJ = Personaje.IdJ GROUP BY UltimaConexion) AS AUX1 WHERE Jugador.IdJ = AUX1.IdJ) ) >= 60;
-            
+				Personaje ON Jugador.IdJ = Personaje.IdJ GROUP BY UltimaConexion) AS AUX1 
+                WHERE Jugador.IdJ = AUX1.IdJ ) ) >= 60;
 	END //
     DELIMITER ; 
     

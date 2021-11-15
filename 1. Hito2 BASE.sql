@@ -227,7 +227,7 @@ CREATE TABLE Personaje_Recibe_Pocion (
 		BEGIN
 			IF (SELECT Clase FROM Arma WHERE NombreA = New.NombreA) <> (SELECT Clase FROM Personaje WHERE NombreP = New.NombreP)
 			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El personaje no puede comprar un arma de un rol diferente';
-			ELSEIF New.Carga = true AND (SELECT Fuerza FROM Personaje WHERE NombreP = New.NombreP) >= ((
+			ELSEIF New.Carga = true AND (SELECT Fuerza FROM Personaje WHERE NombreP = New.NombreP) < ((
 				SELECT Peso FROM Arma WHERE NombreA = New.NombreA) + (SELECT SUM(Peso) FROM Arma 
 					INNER JOIN 
 					Personaje_Compra_Arma ON Arma.NombreA = Personaje_Compra_Arma.NombreA
@@ -259,4 +259,3 @@ CREATE TABLE Personaje_Recibe_Pocion (
 			END IF;
 		END //
 	DELIMITER ;
-
