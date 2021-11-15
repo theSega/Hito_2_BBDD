@@ -221,12 +221,42 @@ CREATE TABLE Personaje_Recibe_Pocion (
 
 # SEMANTICA NO CONTEMPLADA
 
-DELIMITER //
-DROP TRIGGER IF EXISTS Arma_Valida//
-	CREATE TRIGGER Arma_Valida BEFORE INSERT ON Personaje_Compra_Arma FOR EACH ROW
-	BEGIN
-		IF (SELECT Clase FROM Arma WHERE NombreD = New.NombreD) <> (SELECT Clase FROM Personaje WHERE NombreP = New.NombreP)
-		THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El Personaje no puede comprar un arma de un rol diferente';
-        END IF;
-    END //
-DELIMITER ;
+	DELIMITER //
+	DROP TRIGGER IF EXISTS `Arma_Valida+Equipa_Arma`//
+		CREATE TRIGGER `Arma_Valida+Equipa_Arma` BEFORE INSERT ON Personaje_Compra_Arma FOR EACH ROW
+		BEGIN
+			IF (SELECT Clase FROM Arma WHERE NombreA = New.NombreA) <> (SELECT Clase FROM Personaje WHERE NombreP = New.NombreP)
+			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El personaje no puede comprar un arma de un rol diferente';
+			ELSEIF New.Carga = true AND (SELECT Fuerza FROM Personaje WHERE NombreP = New.NombreP) >= ((
+				SELECT Peso FROM Arma WHERE NombreA = New.NombreA) + (SELECT SUM(Peso) FROM Arma 
+					INNER JOIN 
+					Personaje_Compra_Arma ON Arma.NombreA = Personaje_Compra_Arma.NombreA
+					WHERE Carga = true AND Personaje_Compra_Arma.NombreP = New.NombreP))
+			THEN SET New.Carga = false; #No impide la obtencion del arma pero si evita que se equipe si no hay suficiente fuerza
+			END IF;
+		END //
+	DELIMITER ;
+
+	DELIMITER //
+	DROP TRIGGER IF EXISTS Misiones_Monstruos//
+		CREATE TRIGGER Misiones_Monstruos BEFORE INSERT ON Personaje_Derrota_Monstruo FOR EACH ROW
+		BEGIN
+			IF (SELECT Clase FROM Monstruo WHERE NombreM = New.NombreM AND CodM = New.CodM) <> (SELECT Clase FROM Personaje WHERE NombreP = New.NombreP)
+			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El Personaje no puede derrotar este tipo de monstruo';
+			ELSE UPDATE Personaje SET Oro = Oro + (SELECT Oro FROM Monstruo WHERE NombreM = New.NombreM AND CodM = New.CodM) WHERE NombreP = New.NombreP;
+			END IF;
+		END //
+	DELIMITER ;
+
+	DELIMITER //
+	DROP TRIGGER IF EXISTS Necesario_1_de_Cada_Rol//
+		CREATE TRIGGER Necesario_1_de_Cada_Rol BEFORE INSERT ON Escuadron_Derrota_Dragon FOR EACH ROW
+		BEGIN
+			IF (SELECT COUNT(DISTINCT Clase) FROM Rol) <> (SELECT COUNT(DISTINCT Clase) FROM Personaje 
+				INNER JOIN Personaje_Entra_Escuadron ON Personaje.NombreP = Personaje_Entra_Escuadron.NombreP 
+					WHERE IdE = New.IdE)
+			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El Escuadron necesita al menos un personaje de cada rol';
+			END IF;
+		END //
+	DELIMITER ;
+

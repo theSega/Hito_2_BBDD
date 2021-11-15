@@ -28,7 +28,7 @@
     CREATE TRIGGER Todos_Dragon_Desbloqueado BEFORE INSERT ON Escuadron_Derrota_Dragon FOR EACH ROW
     BEGIN
 		# Dehiss es el dragon inicial
-        IF  New.NombreD <> 'Dehiss' AND (SELECT COUNT( NombreP ) FROM Personaje_Entra_Escuadron WHERE IdE = New.IdE) <> (
+		IF  New.NombreD <> 'Dehiss' AND (SELECT COUNT( NombreP ) FROM Personaje_Entra_Escuadron WHERE IdE = New.IdE) <> (
 			SELECT COUNT( NombreD2 ) FROM (
 				SELECT NombreD2 FROM (
 					( SELECT NombreP FROM Personaje_Entra_Escuadron WHERE IdE = New.IdE) AS AUX3 

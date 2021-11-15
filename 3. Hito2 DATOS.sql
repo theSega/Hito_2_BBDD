@@ -139,7 +139,7 @@ INSERT INTO Habilidades
 	('Rompespaldas','Ataque de agarre que hace daño crítico','Tanque'),
 	('Seismo','Ataque de 3 ondas de medio alcance','Tanque');
     
-INSERT INTO Monstruo #(CodM, NombreM,Vida,Oro,clase)
+INSERT INTO Monstruo #(CodM, NombreM,Oro,Vida,clase)
 	VALUES('Espectro','Ligos',300,250,'Mago'),
     ('Espectro','Bachpai',500,1000,'Mago'),
     ('Espectro','Lira',700,1750,'Mago'),
