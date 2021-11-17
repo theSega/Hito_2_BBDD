@@ -236,6 +236,20 @@ CREATE TABLE Personaje_Recibe_Pocion (
 			END IF;
 		END //
 	DELIMITER ;
+    
+	DELIMITER //
+	DROP TRIGGER IF EXISTS Carga_Arma//
+		CREATE TRIGGER Carga_Arma BEFORE UPDATE ON Personaje_Compra_Arma FOR EACH ROW
+		BEGIN
+			IF New.Carga = true AND (SELECT Fuerza FROM Personaje WHERE NombreP = New.NombreP) < ((
+				SELECT Peso FROM Arma WHERE NombreA = New.NombreA) + (SELECT SUM(Peso) FROM Arma 
+					INNER JOIN 
+					Personaje_Compra_Arma ON Arma.NombreA = Personaje_Compra_Arma.NombreA
+					WHERE Carga = true AND Personaje_Compra_Arma.NombreP = New.NombreP))
+			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El personaje no tiene fuerza como para equiparse esa arma';
+			END IF;
+		END //
+	DELIMITER ;
 
 	DELIMITER //
 	DROP TRIGGER IF EXISTS Misiones_Monstruos//

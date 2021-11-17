@@ -13,18 +13,14 @@ USE Hito2;
         DECLARE CONTINUE HANDLER FOR NOT FOUND SET final = 1;
         OPEN Cur;
 			bucle: LOOP
-			
 				FETCH cur INTO  var_Nombre;
-			
 				IF final = 1 THEN
 					LEAVE bucle;
 				END IF;
-				
 				UPDATE Personaje SET Vida = Vida + 10 WHERE NombreP = var_Nombre AND var_Nombre IN (
 					SELECT NombreP FROM Personaje_Derrota_Monstruo WHERE CodM  = 'Goblin'
 					GROUP BY NombreP
 					HAVING COUNT(CodM) >= 50 );
-        
 			END LOOP bucle;
         CLOSE Cur;
 	END $$
