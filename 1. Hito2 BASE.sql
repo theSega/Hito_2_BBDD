@@ -60,7 +60,7 @@ CREATE TABLE Tienda_Se_Ubica_Ciudad (
 	CONSTRAINT tienda_se_ubica_ciudad
 			FOREIGN KEY (NombreC) REFERENCES Hito2.Ciudad (NombreC)
             ON DELETE CASCADE, 
-			FOREIGN KEY (NombreT) REFERENCES	Hito2.Tienda (NombreT)
+			FOREIGN KEY (NombreT) REFERENCES Hito2.Tienda (NombreT)
             ON DELETE CASCADE
 );
 

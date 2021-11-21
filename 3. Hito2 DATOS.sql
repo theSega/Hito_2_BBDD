@@ -86,8 +86,8 @@ INSERT INTO Jugador (NombreJ)
     ('Greyblade'); #IdJ 5 -> Raendan, Mawki
     
 INSERT INTO Personaje #(NombreP, Oro, Nivel, Fuerza, Mana, Vida, TipoD, IdJ, Clase)
-	VALUES ('Raendan',15470,47, 57,14100,14100,'Daga de marfil',5,'Mago','2021-10-19'), # Magos -> Vida = 300*Nivel
-    ('Manddin', 1287, 15, 25,4500,4500,'Daga de madera',4,'Mago','2021-08-31'), #			      Mana = 300*Nivel
+	VALUES ('Raendan',15470,47,57,14100,14100,'Daga de marfil',5,'Mago','2021-10-19'), # Magos -> Vida = 300*Nivel
+    ('Manddin', 1287, 15,25,4500,4500,'Daga de madera',4,'Mago','2021-08-31'), #			      Mana = 300*Nivel
     ('Xadel', 70765,83,91,24900,24900,'Daga de diamante',4,'Mago','2021-08-31'),
     ('Enso',300,50,60,15000,15000,'Daga de marfil',3,'Mago','2021-11-22'),
     ('Stanto',8923,31,41,6200,15500,'Daga de bronce',1,'Guerrero','2021-09-30'), # Guerreros -> Vida = 500*Nivel
@@ -97,8 +97,8 @@ INSERT INTO Personaje #(NombreP, Oro, Nivel, Fuerza, Mana, Vida, TipoD, IdJ, Cla
     ('Ahkarg',103872,94,97,9400,65800,'Daga de diamante',2,'Tanque','2021-11-15'), # Tanques -> Vida = 700*Nivel
     ('Bucksel',893,43,53,4300,21500,'Daga de bronce',3,'Tanque','2021-11-22'), #				   Mana = 100*Nivel
     ('Mashgor',1357,77,87,7700,38500,'Daga de madera',2,'Tanque','2021-11-15'),
-    ('Gim',638,7,17,700,3500,'Daga de madera',1,'Tanque','2021-09-30'); # Fuerza = 10 * Nivel (hasta nivel 80)
-														   # Luego cada 2 niveles Fuerza = Fuerza + 1
+    ('Gim',638,7,17,700,3500,'Daga de madera',1,'Tanque','2021-09-30'); # Fuerza = 10 + Nivel (hasta nivel 80)
+																		# Luego cada 2 niveles Fuerza = Fuerza + 1
     
 INSERT INTO Personaje_Compra_Arma #(NombreP, NombreA, Fecha, Carga)
 	VALUES ('Raendan','Baculo de Madera','2021-03-01',false), # Magos

@@ -6,7 +6,6 @@ USE Hito2;
     DROP PROCEDURE IF EXISTS Guerrero_Derrota_Goblin $$
     CREATE PROCEDURE Guerrero_Derrota_Goblin()
 	BEGIN
-    
 		DECLARE var_Nombre VARCHAR(15);
         DECLARE final INTEGER DEFAULT 0;
         DECLARE Cur CURSOR FOR SELECT NombreP FROM Personaje WHERE Clase = 'Guerrero';
