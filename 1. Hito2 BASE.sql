@@ -222,6 +222,18 @@ CREATE TABLE Personaje_Recibe_Pocion (
 # SEMANTICA NO CONTEMPLADA
 
 	DELIMITER //
+	DROP TRIGGER IF EXISTS Solo_1_Rol_1_Dueño//
+		CREATE TRIGGER Solo_1_Rol_1_Dueño BEFORE UPDATE ON Personaje FOR EACH ROW
+		BEGIN
+			IF New.Clase <> Old.Clase
+			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Los personaje no pueden cambiar de rol';
+            ELSEIF New.IdJ <> Old.IdJ
+            THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Los personaje no pueden cambiar de dueño';
+			END IF;
+		END //
+	DELIMITER ;
+
+	DELIMITER //
 	DROP TRIGGER IF EXISTS `Arma_Valida+Equipa_Arma`//
 		CREATE TRIGGER `Arma_Valida+Equipa_Arma` BEFORE INSERT ON Personaje_Compra_Arma FOR EACH ROW
 		BEGIN
