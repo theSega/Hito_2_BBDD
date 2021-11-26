@@ -92,8 +92,8 @@ CREATE TABLE Personaje (
 		CHECK( Oro>=0),
 	Nivel INTEGER NOT NULL DEFAULT 1,
 		CHECK ( Nivel >=1 AND Nivel <=100),
-	Fuerza INTEGER NOT NULL DEFAULT 10,
-		CHECK( Fuerza>=10 AND Fuerza<=100),
+	Fuerza INTEGER NOT NULL DEFAULT 11,
+		CHECK( Fuerza>=11 AND Fuerza<=100),
 	Mana INTEGER NOT NULL DEFAULT 0,
 		CHECK ( Mana>=0 ),
 	Vida INTEGER NOT NULL DEFAULT 0,
@@ -232,32 +232,39 @@ CREATE TABLE Personaje_Recibe_Pocion (
 			END IF;
 		END //
 	DELIMITER ;
-
-	DELIMITER //
+    
+    DELIMITER //
 	DROP TRIGGER IF EXISTS `Arma_Valida+Equipa_Arma`//
 		CREATE TRIGGER `Arma_Valida+Equipa_Arma` BEFORE INSERT ON Personaje_Compra_Arma FOR EACH ROW
 		BEGIN
-			IF (SELECT Clase FROM Arma WHERE NombreA = New.NombreA) <> (SELECT Clase FROM Personaje WHERE NombreP = New.NombreP)
+            SET @Carga_Max = (SELECT Fuerza FROM Personaje WHERE NombreP = New.NombreP);
+            SET @Peso_Arma = (SELECT Peso FROM Arma WHERE NombreA = New.NombreA);
+            SET @Peso_Cargado = (SELECT SUM(Peso) FROM Arma 
+				INNER JOIN Personaje_Compra_Arma ON Arma.NombreA = Personaje_Compra_Arma.NombreA
+				WHERE Carga = true AND Personaje_Compra_Arma.NombreP = New.NombreP);
+            
+            IF New.NombreP NOT IN ( SELECT NombreP FROM Arma INNER JOIN Personaje ON Arma.Clase = Personaje.Clase
+				WHERE NombreA = New.NombreA )
 			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El personaje no puede comprar un arma de un rol diferente';
-			ELSEIF New.Carga = true AND (SELECT Fuerza FROM Personaje WHERE NombreP = New.NombreP) < ((
-				SELECT Peso FROM Arma WHERE NombreA = New.NombreA) + (SELECT SUM(Peso) FROM Arma 
-					INNER JOIN 
-					Personaje_Compra_Arma ON Arma.NombreA = Personaje_Compra_Arma.NombreA
-					WHERE Carga = true AND Personaje_Compra_Arma.NombreP = New.NombreP))
+            
+            ELSEIF New.Carga = true AND (@Carga_Max < (@Peso_Arma + @Peso_Cargado))
 			THEN SET New.Carga = false; #No impide la obtencion del arma pero si evita que se equipe si no hay suficiente fuerza
+            
 			END IF;
 		END //
 	DELIMITER ;
-    
+
 	DELIMITER //
 	DROP TRIGGER IF EXISTS Carga_Arma//
 		CREATE TRIGGER Carga_Arma BEFORE UPDATE ON Personaje_Compra_Arma FOR EACH ROW
 		BEGIN
-			IF New.Carga = true AND (SELECT Fuerza FROM Personaje WHERE NombreP = New.NombreP) < ((
-				SELECT Peso FROM Arma WHERE NombreA = New.NombreA) + (SELECT SUM(Peso) FROM Arma 
-					INNER JOIN 
-					Personaje_Compra_Arma ON Arma.NombreA = Personaje_Compra_Arma.NombreA
-					WHERE Carga = true AND Personaje_Compra_Arma.NombreP = New.NombreP))
+			SET @Carga_Max = (SELECT Fuerza FROM Personaje WHERE NombreP = New.NombreP);
+            SET @Peso_Arma = (SELECT Peso FROM Arma WHERE NombreA = New.NombreA);
+            SET @Peso_Cargado = (SELECT SUM(Peso) FROM Arma 
+				INNER JOIN Personaje_Compra_Arma ON Arma.NombreA = Personaje_Compra_Arma.NombreA
+				WHERE Carga = true AND Personaje_Compra_Arma.NombreP = New.NombreP);
+                
+			IF New.Carga = true AND (@Carga_Max < (@Peso_Arma + @Peso_Cargado))
 			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El personaje no tiene fuerza como para equiparse esa arma';
 			END IF;
 		END //
@@ -267,10 +274,12 @@ CREATE TABLE Personaje_Recibe_Pocion (
 	DROP TRIGGER IF EXISTS Misiones_Monstruos//
 		CREATE TRIGGER Misiones_Monstruos BEFORE INSERT ON Personaje_Derrota_Monstruo FOR EACH ROW
 		BEGIN
-			IF (SELECT Clase FROM Monstruo WHERE NombreM = New.NombreM AND CodM = New.CodM) <> (SELECT Clase FROM Personaje WHERE NombreP = New.NombreP)
+            IF New.NombreP NOT IN ( SELECT DISTINCT NombreP FROM Monstruo INNER JOIN Personaje ON Monstruo.Clase = Personaje.Clase 
+				WHERE CodM = New.CodM )
 			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El Personaje no puede derrotar este tipo de monstruo';
-			ELSE UPDATE Personaje SET Oro = Oro + (SELECT Oro FROM Monstruo WHERE NombreM = New.NombreM AND CodM = New.CodM) WHERE NombreP = New.NombreP;
-			END IF;
+			ELSE UPDATE Personaje SET Oro = Oro + (
+				SELECT Oro FROM Monstruo WHERE NombreM = New.NombreM AND CodM = New.CodM) WHERE NombreP = New.NombreP;
+            END IF;
 		END //
 	DELIMITER ;
 
@@ -280,8 +289,39 @@ CREATE TABLE Personaje_Recibe_Pocion (
 		BEGIN
 			IF (SELECT COUNT(DISTINCT Clase) FROM Rol) <> (SELECT COUNT(DISTINCT Clase) FROM Personaje 
 				INNER JOIN Personaje_Entra_Escuadron ON Personaje.NombreP = Personaje_Entra_Escuadron.NombreP 
-					WHERE IdE = New.IdE)
+				WHERE IdE = New.IdE)
 			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El Escuadron necesita al menos un personaje de cada rol';
 			END IF;
+		END //
+	DELIMITER ;
+    
+    #TRIGGERS DE INCLUSION DE DATOS
+    
+    DELIMITER //
+	DROP TRIGGER IF EXISTS Vida_Mana_Fuerza//
+		CREATE TRIGGER Vida_Mana_Fuerza BEFORE INSERT ON Personaje FOR EACH ROW
+		BEGIN
+            IF New.Clase = 'Mago'
+            THEN SET New.Vida = 300*New.Nivel;
+            ELSEIF New.Clase = 'Guerrero'
+            THEN SET New.Vida = 500*New.Nivel;
+            ELSEIF New.Clase = 'Tanque'
+            THEN SET New.Vida = 700*New.Nivel;
+			END IF;
+            
+             IF New.Clase = 'Mago'
+            THEN SET New.Mana = 300*New.Nivel;
+            ELSEIF New.Clase = 'Guerrero'
+            THEN SET New.Mana = 200*New.Nivel;
+            ELSEIF New.Clase = 'Tanque'
+            THEN SET New.Mana = 100*New.Nivel;
+			END IF;
+            
+			IF New.Nivel <= 80
+            THEN SET New.Fuerza = New.Nivel + 10;
+            ELSEIF mod(New.Nivel,2) = 0 #Par
+            THEN SET New.Fuerza = 90 + ((New.Nivel - 80)/2);
+            ELSE SET New.Fuerza = 90 + ((New.Nivel - 80)/2) - 1 ;
+            END IF;
 		END //
 	DELIMITER ;

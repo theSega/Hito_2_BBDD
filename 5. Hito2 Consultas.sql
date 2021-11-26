@@ -39,16 +39,17 @@
 
 # f ) Obtener los tanques que unicamente portan hachas de doble punta
 	USE hito2;
-    SELECT NombreP, NombreA, Carga FROM Personaje_Compra_Arma 
-		WHERE NombreA = 'Hacha de doble punta'
-        AND Carga = true;
-    
+        SELECT * FROM ( SELECT NombreP, Arma.NombreA, Carga FROM Personaje_Compra_Arma INNER JOIN
+		Arma ON Personaje_Compra_Arma.NombreA = Arma.NombreA WHERE Carga = true AND Arma.NombreA = 'Hacha de doble punta') AS AUX1
+        WHERE NombreP NOT IN ( SELECT NombreP FROM Personaje_Compra_Arma INNER JOIN
+		Arma ON Personaje_Compra_Arma.NombreA = Arma.NombreA WHERE Carga = true AND Arma.NombreA <> 'Hacha de doble punta');
+        
 # g) Obtener nombres, vida y fuerza de guerreros que hayan recibido una pocion de,todos los druidas existentes.
 	USE hito2;
 	SELECT NombreP, Vida,Fuerza FROM Personaje WHERE Clase = 'Guerrero' AND NombreP IN(
 		SELECT NombreP FROM Personaje_Recibe_Pocion 
 		GROUP BY NombreP
-		HAVING COUNT(DISTINCT Druida) = 4); # = 4 por que hay 4 diferentes druidas
+		HAVING COUNT(DISTINCT Druida) = ( SELECT COUNT(DISTINCT Druida) FROM Personaje_Recibe_Pocion));
 
 # h) Obtener el nivel de los magos que han derrotado a todos los espectros y han comprado todas las dagas disponibles 
 #   (NO SE PUEDE HACER LO ULTIMO - DAGAS)
@@ -56,17 +57,15 @@
 	SELECT Nivel FROM Personaje WHERE Clase = 'Mago' AND NombreP IN (
 		SELECT NombreP FROM Personaje_Derrota_Monstruo 
 		GROUP BY NombreP
-		HAVING COUNT(DISTINCT NombreM) = 4);# = 4 por que hay 4 diferentes espectros
+		HAVING COUNT(DISTINCT NombreM) = ( SELECT COUNT(DISTINCT NombreM) FROM Monstruo WHERE CodM = 'Espectro' ));
         
 # i) Obtener el tanque que ha participado en el maximo numero de escuadrones.
 	USE hito2;
     SELECT * FROM personaje WHERE Clase = 'Tanque' AND NombreP IN (
 		SELECT NombreP FROM Personaje_Entra_Escuadron
         GROUP BY NombreP
-        HAVING COUNT(NombreP) = (
-			SELECT MAX(Total) FROM (
-				SELECT COUNT(NombreP) AS Total FROM Personaje_Entra_Escuadron
-				GROUP BY NombreP) AS AUX));
+        HAVING COUNT(NombreP) = ( SELECT MAX(Total) FROM (
+			SELECT COUNT(NombreP) AS Total FROM Personaje_Entra_Escuadron GROUP BY NombreP) AS AUX));
 
 # j) Obtener el hacha con menor peso y el dueño de la forja donde se hizo
    USE hito2;

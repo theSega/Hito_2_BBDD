@@ -28,17 +28,11 @@
     CREATE TRIGGER Todos_Dragon_Desbloqueado BEFORE INSERT ON Escuadron_Derrota_Dragon FOR EACH ROW
     BEGIN
 		# Dehiss es el dragon inicial
-		IF  New.NombreD <> 'Dehiss' AND (SELECT COUNT( NombreP ) FROM Personaje_Entra_Escuadron WHERE IdE = New.IdE) <> (
-				SELECT COUNT( NombreD2 ) FROM (
-					( SELECT NombreP FROM Personaje_Entra_Escuadron WHERE IdE = New.IdE) AS AUX3 
-					INNER JOIN 
-						( SELECT DISTINCT NombreP, NombreD2 FROM Personaje_Entra_Escuadron 
-						INNER JOIN
-							( SELECT DISTINCT IdE, NombreD2 FROM Escuadron_Derrota_Dragon 
-                            INNER JOIN 
-							Dragon_Desbloquea_Dragon ON NombreD = NombreD1 ) AS AUX1 
-						ON Personaje_Entra_Escuadron.IdE = AUX1.IdE ) AS AUX2 
-				ON AUX3.NombreP = AUX2.NombreP ) WHERE NombreD2 = New.NombreD)
+		IF  New.NombreD <> 'Dehiss' AND (SELECT COUNT(NombreP) FROM Personaje_Entra_Escuadron WHERE IdE = New.IdE) <> (
+			SELECT COUNT(NombreP) FROM Personaje_Entra_Escuadron INNER JOIN ( 
+				SELECT DISTINCT IdE, NombreD2 FROM Escuadron_Derrota_Dragon 
+                INNER JOIN Dragon_Desbloquea_Dragon ON NombreD = NombreD1 ) AS AUX1 
+			ON Personaje_Entra_Escuadron.IdE = AUX1.IdE WHERE NombreD2 = New.NombreD AND AUX1.IdE = New.IdE)
 		THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No todos los miembros del escuadron tienen el dragon desbloqueado';
 		END IF;
     END $$

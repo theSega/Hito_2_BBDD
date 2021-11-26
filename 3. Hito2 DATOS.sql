@@ -85,22 +85,21 @@ INSERT INTO Jugador (NombreJ)
     ('Cloakbane'), #IdJ 4 -> Manddin, Xadel
     ('Greyblade'); #IdJ 5 -> Raendan, Mawki
     
-INSERT INTO Personaje #(NombreP, Oro, Nivel, Fuerza, Mana, Vida, TipoD, IdJ, Clase)
-	VALUES ('Raendan',15470,47,57,14100,14100,'Daga de marfil',5,'Mago','2021-10-19'), # Magos -> Vida = 300*Nivel
-    ('Manddin', 1287, 15,25,4500,4500,'Daga de madera',4,'Mago','2021-08-31'), #			      Mana = 300*Nivel
-    ('Xadel', 70765,83,91,24900,24900,'Daga de diamante',4,'Mago','2021-08-31'),
-    ('Enso',300,50,60,15000,15000,'Daga de marfil',3,'Mago','2021-11-22'),
-    ('Stanto',8923,31,41,6200,15500,'Daga de bronce',1,'Guerrero','2021-09-30'), # Guerreros -> Vida = 500*Nivel
-    ('Makwi',9170,65,75,13000,32500,'Daga de marfil',5,'Guerrero','2021-10-19'), #			   Mana = 200*Nivel
-    ('Carorhall', 58,27,37,5400,13500,'Daga de madera',3,'Guerrero','2021-11-22'),
-    ('Dryto', 28340,63,73,12600,31500,'Daga de diamante',2,'Guerrero','2021-11-15'),
-    ('Ahkarg',103872,94,97,9400,65800,'Daga de diamante',2,'Tanque','2021-11-15'), # Tanques -> Vida = 700*Nivel
-    ('Bucksel',893,43,53,4300,21500,'Daga de bronce',3,'Tanque','2021-11-22'), #				   Mana = 100*Nivel
-    ('Mashgor',1357,77,87,7700,38500,'Daga de madera',2,'Tanque','2021-11-15'),
-    ('Gim',638,7,17,700,3500,'Daga de madera',1,'Tanque','2021-09-30'); # Fuerza = 10 + Nivel (hasta nivel 80)
-																		# Luego cada 2 niveles Fuerza = Fuerza + 1
+INSERT INTO Personaje (NombreP, Oro, Nivel, TipoD, IdJ, Clase, UltimaConexion)
+	VALUES ('Raendan',15470,47,'Daga de marfil',5,'Mago','2021-10-19'), # Magos
+    ('Manddin', 1287, 15,'Daga de madera',4,'Mago','2021-08-31'),
+    ('Xadel', 70765,83,'Daga de diamante',4,'Mago','2021-08-31'),
+    ('Enso',300,50,'Daga de marfil',3,'Mago','2021-11-22'),
+    ('Stanto',8923,31,'Daga de bronce',1,'Guerrero','2021-09-30'), # Guerrero
+    ('Makwi',9170,65,'Daga de marfil',5,'Guerrero','2021-10-19'),
+    ('Carorhall',58,27,'Daga de madera',3,'Guerrero','2021-11-22'),
+    ('Dryto', 28340,63,'Daga de diamante',2,'Guerrero','2021-11-15'),
+    ('Ahkarg',103872,94,'Daga de diamante',2,'Tanque','2021-11-15'), # Tanque
+    ('Bucksel',893,43,'Daga de bronce',3,'Tanque','2021-11-22'),
+    ('Mashgor',1357,77,'Daga de madera',2,'Tanque','2021-11-15'),
+    ('Gim',638,7,'Daga de madera',1,'Tanque','2021-09-30');
     
-INSERT INTO Personaje_Compra_Arma #(NombreP, NombreA, Fecha, Carga)
+INSERT INTO Personaje_Compra_Arma (NombreP, NombreA, Fecha, Carga)
 	VALUES ('Raendan','Baculo de Madera','2021-03-01',false), # Magos
     ('Raendan','Mensajero de Mana','2021-07-30',true),
     ('Manddin','Baculo de Madera','2021-06-09',true),
@@ -123,9 +122,9 @@ INSERT INTO Personaje_Compra_Arma #(NombreP, NombreA, Fecha, Carga)
     ('Ahkarg','Hacha de doble punta','2021-10-17',true), 
     ('Bucksel','Hacha arrojadiza','2021-03-25',false),
     ('Bucksel','Hacha de mano','2021-09-01',true),
-    ('Mashgor','Hacha de mano','2021-07-30',true),
-    ('Mashgor','Hacha arrojadiza','2021-04-26',false), 
-    ('Mashgor','Hacha de doble punta','2021-10-17',false),
+    ('Mashgor','Hacha de mano','2021-07-30',false),
+    ('Mashgor','Hacha arrojadiza','2021-04-26',true), 
+    ('Mashgor','Hacha de doble punta','2021-10-17',true),
     ('Gim','Hacha arrojadiza','2021-09-21',true);
 	
 INSERT INTO Habilidades
@@ -297,10 +296,10 @@ INSERT INTO Escuadron_Derrota_Dragon
 	('Pastan',13256);
     
 INSERT INTO Pocion (RecVida, RecMana)
-	VALUES(0,500), # CodP 1 -> Zucsur
-    (500,0), # CodP 2 -> Losla
-    (300,300), # CodP 3 -> Tar
-    (750,750); # CodP 4 -> Pikduk
+	VALUES(0,500),
+    (500,0), 
+    (300,300), 
+    (750,750); 
 
 INSERT INTO hito2.Personaje_Recibe_Pocion #(CodP, NombreP, Druida, Fecha)
 	VALUES (1,'Raendan','Zucsur','2021-03-12'), # Magos
